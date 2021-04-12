@@ -1,5 +1,7 @@
 package br.com.roberto.v1.rest;
 
+import br.com.roberto.dto.ContatoDto;
+import br.com.roberto.service.ContatoService;
 import br.com.roberto.v1.model.ContatoModel;
 import br.com.roberto.v1.openapi.ContatoRestOpenApi;
 
@@ -18,18 +20,23 @@ import java.util.List;
 public class ContatoRest implements ContatoRestOpenApi {
 
     @Inject
-    //private ContatoService contatoService;
+    private ContatoService contatoService;
 
+    /**
+     * Consulta todos os contatos
+     * @return Lista de Contatos
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContatos(){
 
-        List<ContatoModel>  listaContatoDTO = new ArrayList<>();
+        /*List<ContatoModel>  listaContatoDTO = new ArrayList<>();
         listaContatoDTO.add(new ContatoModel(1L,"111.222.333-87","Carlos Roberto","61-9999-9999"));
         listaContatoDTO.add(new ContatoModel(2L,"222.333.444-66","Antonio Nunes","61-8888-8888"));
-        listaContatoDTO.add(new ContatoModel(3L,"333.444.555-77","Luciene Alves","61-7777-7777"));
+        listaContatoDTO.add(new ContatoModel(3L,"333.444.555-77","Luciene Alves","61-7777-7777"));*/
 
-        return Response.ok(listaContatoDTO).build();
+        List<ContatoDto> contatos = contatoService.getContatos();
+        return Response.ok(contatos).build();
 
     }
 
