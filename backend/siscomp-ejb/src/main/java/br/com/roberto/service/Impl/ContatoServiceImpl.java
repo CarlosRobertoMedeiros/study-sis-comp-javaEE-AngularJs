@@ -2,11 +2,13 @@ package br.com.roberto.service.Impl;
 
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.entity.Contato;
+import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.service.ContatoService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.util.ArrayList;
 import java.util.List;
 
 @Stateless
@@ -16,12 +18,28 @@ public class ContatoServiceImpl implements ContatoService {
     private ContatoRepository contatoRepository;
 
     @Override
-    public List<ContatoDto> getContatos() {
+    public List<ContatoDto> getContatos() throws NegocioException {
         List<Contato> contatos = contatoRepository.findAll();
+        List<ContatoDto> contatoDtos;
+        contatoDtos = tratarContatoResponse(contatos);
+        return contatoDtos;
+    }
 
-        //todo:Falta Implementar um Método para Converter a lista de Contatos para o seu devido DTO
 
+    private List<ContatoDto> tratarContatoResponse(List<Contato> contatos) {
+        List<ContatoDto> contatoDtos = new ArrayList<>();
 
-        return null;
+        for (Contato contato: contatos) {
+            ContatoDto contatoDto = new ContatoDto();
+
+            //Campos interessantes a serem expostos
+            contatoDto.setId(contato.getId());
+            contatoDto.setCpf(contato.getCpf());
+            contatoDto.setNome(contato.getNome());
+            contatoDto.setTelefone(contato.getTelefone());
+            contatoDto.setDataUltimaAtualizacao(contato.getDataUltimaAtualizacao());
+            contatoDtos.add(contatoDto);
+        }
+        return contatoDtos;
     }
 }

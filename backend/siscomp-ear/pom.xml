@@ -8,10 +8,11 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <modelVersion>4.0.0</modelVersion>
+    <name>siscomp-ear</name>
     <artifactId>siscomp-ear</artifactId>
-    <version>1.0-SNAPSHOT</version>
     <packaging>ear</packaging>
+    <modelVersion>4.0.0</modelVersion>
+    <version>1.0-SNAPSHOT</version>
 
     <properties>
         <ear.plugin.version>3.0.2</ear.plugin.version>

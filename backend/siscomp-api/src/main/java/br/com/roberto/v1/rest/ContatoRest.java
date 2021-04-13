@@ -1,6 +1,10 @@
 package br.com.roberto.v1.rest;
 
 import br.com.roberto.dto.ContatoDto;
+import br.com.roberto.entity.Contato;
+import br.com.roberto.exceptions.InfraEstruturaException;
+import br.com.roberto.exceptions.IntegracaoException;
+import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.service.ContatoService;
 import br.com.roberto.v1.model.ContatoModel;
 import br.com.roberto.v1.openapi.ContatoRestOpenApi;
@@ -14,10 +18,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 @Path("v1/contatos")
 public class ContatoRest implements ContatoRestOpenApi {
+
+    private Logger logger = Logger.getLogger(ContatoRest.class.getName());
 
     @Inject
     private ContatoService contatoService;
@@ -29,15 +36,20 @@ public class ContatoRest implements ContatoRestOpenApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getContatos(){
+        List<ContatoDto> contatosResponse = null;
+        contatosResponse = new ArrayList<>();
 
-        /*List<ContatoModel>  listaContatoDTO = new ArrayList<>();
-        listaContatoDTO.add(new ContatoModel(1L,"111.222.333-87","Carlos Roberto","61-9999-9999"));
-        listaContatoDTO.add(new ContatoModel(2L,"222.333.444-66","Antonio Nunes","61-8888-8888"));
-        listaContatoDTO.add(new ContatoModel(3L,"333.444.555-77","Luciene Alves","61-7777-7777"));*/
-
-        List<ContatoDto> contatos = contatoService.getContatos();
-        return Response.ok(contatos).build();
-
+        try {
+            for (ContatoDto contatoDto : contatoService.getContatos()) {
+                contatosResponse.add(contatoDto);
+            }
+        } catch (NegocioException e) {
+            logger.severe(e.getMessage());
+            return Response.status(Response.Status.fromStatusCode(NegocioException.CODIGO)).build();
+        }catch (Exception e) {
+            logger.severe(e.getMessage());
+            return Response.status(Response.Status.fromStatusCode(InfraEstruturaException.CODIGO)).build();
+        }
+        return Response.ok(contatosResponse).build();
     }
-
 }

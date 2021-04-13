@@ -21,6 +21,10 @@ public class ContatoDto {
         this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getCpf() {
         return cpf;
     }
