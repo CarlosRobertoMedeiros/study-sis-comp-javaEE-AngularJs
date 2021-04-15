@@ -4,10 +4,12 @@ import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.entity.Contato;
 import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
+import br.com.roberto.repository.Page;
 import br.com.roberto.service.ContatoService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +25,17 @@ public class ContatoServiceImpl implements ContatoService {
         List<ContatoDto> contatoDtos;
         contatoDtos = tratarContatoResponse(contatos);
         return contatoDtos;
+    }
+
+    @Override
+    public Response getPaginacaoContatos(int registroInicial) {
+        Page<Contato> paginacao = contatoRepository.findPaginationInformation();
+        System.out.println(paginacao);
+        //List<Contato> contatos = contatoRepository.findAll();
+        List<ContatoDto> contatoDtos;
+        //contatoDtos = tratarContatoResponse(contatos);
+        System.out.println(paginacao);
+        return null;
     }
 
 
