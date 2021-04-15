@@ -10,5 +10,5 @@ import java.util.List;
 @Local
 public interface ContatoService {
     List<ContatoDto> getContatos() throws NegocioException;
-    Response getPaginacaoContatos(int registroInicial);
+    Response getPaginacaoContatos(int totalRegistrosPorPagina,int paginaAtual);
 }

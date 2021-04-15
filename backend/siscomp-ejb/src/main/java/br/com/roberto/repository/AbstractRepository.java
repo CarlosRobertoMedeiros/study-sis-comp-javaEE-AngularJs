@@ -2,7 +2,6 @@ package br.com.roberto.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
@@ -23,12 +22,12 @@ public abstract class AbstractRepository<T, ID> {
         return em.createQuery("Select t from " + getClazz().getSimpleName() + " t").getResultList();
     }
 
-    public <T> Page findPaginationInformation() {
-        Page<T> myPage = new Page<T>();
-        myPage.setQtdeRegistros(Double.valueOf(em.createQuery("Select count(t) from " + getClazz().getSimpleName() + " t").getSingleResult().toString()));
-        myPage.setPageSize(Double.valueOf(10));
-        myPage.setAtualPage(Double.valueOf(1));
-        return myPage;
+    public <T> Paginacao findAllWithPagination(int totalRegistrosPorPagina, int paginaAtual) {
+        Paginacao<T> myPaginacao = new Paginacao<T>();
+        myPaginacao.setTotaRegistros(Integer.valueOf(em.createQuery("Select count(t) from " + getClazz().getSimpleName() + " t").getSingleResult().toString()));
+        myPaginacao.setTotalRegistrosPorPagina(totalRegistrosPorPagina);
+        myPaginacao.setPaginaAtual(paginaAtual);
+        return myPaginacao;
     }
 
     public T findById(ID id) {

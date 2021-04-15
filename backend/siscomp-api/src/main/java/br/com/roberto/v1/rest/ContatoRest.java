@@ -49,11 +49,13 @@ public class ContatoRest implements ContatoRestOpenApi {
     }
 
     @GET
-    @Path("/paginados-a-partir-de/{registroInicial}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getPaginacaoContatos(@PathParam("registroInicial") int registroInicial){
-        Response response =  contatoService.getPaginacaoContatos(registroInicial);
-        System.out.println("Registro Informado: "+ registroInicial);
+    @Path("/contatos-paginados")
+    public Response getPaginacaoContatos(@QueryParam("totalRegistrosPorPagina") int totalRegistrosPorPagina,
+                                         @QueryParam("paginaAtual") int paginaAtual){
+
+        Response response =  contatoService.getPaginacaoContatos(totalRegistrosPorPagina,paginaAtual);
+        System.out.println("Registro Informado: "+ paginaAtual);
         return Response.ok(new ContatoDto()).build();
         /*
         List<ContatoDto> contatosResponse = null;
