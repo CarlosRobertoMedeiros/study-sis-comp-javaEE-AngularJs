@@ -71,4 +71,15 @@ public class Contato implements Serializable {
     public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
         this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
+
+    @Override
+    public String toString() {
+        return "Contato{" +
+                "id=" + id +
+                ", cpf='" + cpf + '\'' +
+                ", nome='" + nome + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", dataUltimaAtualizacao=" + dataUltimaAtualizacao +
+                '}';
+    }
 }

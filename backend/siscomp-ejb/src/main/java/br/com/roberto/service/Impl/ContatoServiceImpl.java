@@ -33,9 +33,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     @Override
     public Response getPaginacaoContatos(int totalRegistrosPorPagina, int paginaAtual) {
-        Paginacao<Contato> paginacao = contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual);
-        System.out.println(paginacao);
-
+        contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
         return null;
     }
 

@@ -17,6 +17,7 @@
     <properties>
 
         <javaee-api-version>7.0</javaee-api-version>
+        <cdi-api-version>2.0</cdi-api-version>
         <swagger-version>1.5.19</swagger-version>
         <rest-assured-version>4.3.3</rest-assured-version>
         <junit-version>4.12</junit-version>
@@ -30,6 +31,13 @@
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${javaee-api-version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>${cdi-api-version}</version>
             <scope>provided</scope>
         </dependency>
 
