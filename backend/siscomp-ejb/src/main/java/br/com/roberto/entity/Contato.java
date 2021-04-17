@@ -12,17 +12,17 @@ public class Contato implements Serializable {
     private String cpf;
     private String nome;
     private String telefone;
-    private LocalDateTime dataUltimaAtualizacao = LocalDateTime.now();
+    //private LocalDateTime dataUltimaAtualizacao = LocalDateTime.now();
 
     public Contato(){}
 
-    public Contato(Long id, String cpf, String nome, String telefone, LocalDateTime dataUltimaAtualizacao) {
+    public Contato(Long id, String cpf, String nome, String telefone /*,LocalDateTime dataUltimaAtualizacao*/) {
         super();
         this.id = id;
         this.cpf = cpf;
         this.nome = nome;
         this.telefone = telefone;
-        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+        //this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
 
     @Id
@@ -47,10 +47,10 @@ public class Contato implements Serializable {
         return telefone;
     }
 
-    @Column(name = "DT_ULTIMA_ATUALIZACAO_CONTATO", length = 100, nullable = false)
-    public LocalDateTime getDataUltimaAtualizacao() {
-        return dataUltimaAtualizacao;
-    }
+//    @Column(name = "DT_ULTIMA_ATUALIZACAO_CONTATO", length = 100, nullable = false)
+//    public LocalDateTime getDataUltimaAtualizacao() {
+//        return dataUltimaAtualizacao;
+//    }
 
     public void setId(Long id) {
         this.id = id;
@@ -68,9 +68,9 @@ public class Contato implements Serializable {
         this.telefone = telefone;
     }
 
-    public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
-        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
-    }
+//    public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
+//        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+//    }
 
     @Override
     public String toString() {
@@ -79,7 +79,7 @@ public class Contato implements Serializable {
                 ", cpf='" + cpf + '\'' +
                 ", nome='" + nome + '\'' +
                 ", telefone='" + telefone + '\'' +
-                ", dataUltimaAtualizacao=" + dataUltimaAtualizacao +
+ //               ", dataUltimaAtualizacao=" + dataUltimaAtualizacao +
                 '}';
     }
 }

@@ -51,30 +51,16 @@ public class ContatoRest implements ContatoRestOpenApi {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/contatos-paginados")
-    public Response getPaginacaoContatos(@QueryParam("totalRegistrosPorPagina") int totalRegistrosPorPagina,
-                                         @QueryParam("paginaAtual") int paginaAtual){
-
-        Response response =  contatoService.getPaginacaoContatos(totalRegistrosPorPagina,paginaAtual);
-        System.out.println("Registro Informado: "+ paginaAtual);
-        return Response.ok(new ContatoDto()).build();
-        /*
-        List<ContatoDto> contatosResponse = null;
-
-        contatosResponse = new ArrayList<>();
-
+    public Response getContatosPaginados(@QueryParam("totalRegistrosPorPagina") int totalRegistrosPorPagina,
+                                                 @QueryParam("paginaAtual") int paginaAtual){
+        List<ContatoDto> contatosPaginados;
         try {
-            for (ContatoDto contatoDto : contatoService.getContatos()) {
-                contatosResponse.add(contatoDto);
-            }
-        } catch (NegocioException e) {
-            logger.severe(e.getMessage());
-            return Response.status(Response.Status.fromStatusCode(NegocioException.CODIGO)).build();
-        }catch (Exception e) {
-            logger.severe(e.getMessage());
-            return Response.status(Response.Status.fromStatusCode(InfraEstruturaException.CODIGO)).build();
+            contatosPaginados =  contatoService.getContatosPaginados(totalRegistrosPorPagina,paginaAtual);
+            return Response.ok(contatosPaginados).build();
+        }catch (Exception e){
+            logger.severe("Erro Sério => "+e.getMessage());
         }
-        return Response.ok(contatosResponse).build();
-         */
+        return null;
 
     }
 

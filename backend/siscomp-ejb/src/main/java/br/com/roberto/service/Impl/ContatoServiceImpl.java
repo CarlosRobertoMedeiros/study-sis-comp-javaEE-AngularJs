@@ -7,6 +7,7 @@ import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.Paginacao;
 import br.com.roberto.service.ContatoService;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
@@ -16,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+@Local
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class ContatoServiceImpl implements ContatoService, Serializable {
@@ -32,25 +34,12 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     }
 
     @Override
-    public Response getPaginacaoContatos(int totalRegistrosPorPagina, int paginaAtual) {
-        contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
-        return null;
-    }
-
-    /*
-    @Override
-    public Response getPaginacaoContatos(int registroInicial) {
-        Page<Contato> paginacao = contatoRepository.findPaginationInformation();
-        System.out.println(paginacao);
-        //List<Contato> contatos = contatoRepository.findAll();
+    public List<ContatoDto> getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) {
+        List<Contato> contatos =  contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
         List<ContatoDto> contatoDtos;
-        //contatoDtos = tratarContatoResponse(contatos);
-        System.out.println(paginacao);
-        return null;
+        contatoDtos = tratarContatoResponse(contatos);
+        return contatoDtos;
     }
-
-     */
-
 
     private List<ContatoDto> tratarContatoResponse(List<Contato> contatos) {
         List<ContatoDto> contatoDtos = new ArrayList<>();
@@ -63,7 +52,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             contatoDto.setCpf(contato.getCpf());
             contatoDto.setNome(contato.getNome());
             contatoDto.setTelefone(contato.getTelefone());
-            contatoDto.setDataUltimaAtualizacao(contato.getDataUltimaAtualizacao());
+            //contatoDto.setDataUltimaAtualizacao(contato.getDataUltimaAtualizacao());
             contatoDtos.add(contatoDto);
         }
         return contatoDtos;
