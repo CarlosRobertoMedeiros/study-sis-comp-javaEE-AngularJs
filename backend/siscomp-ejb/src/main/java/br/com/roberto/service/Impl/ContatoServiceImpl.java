@@ -1,6 +1,7 @@
 package br.com.roberto.service.Impl;
 
 import br.com.roberto.dto.ContatoDto;
+import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.entity.Contato;
 import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
@@ -12,7 +13,6 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionManagement;
 import javax.ejb.TransactionManagementType;
 import javax.inject.Inject;
-import javax.ws.rs.core.Response;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +34,21 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     }
 
     @Override
-    public List<ContatoDto> getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) {
-        List<Contato> contatos =  contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
-        List<ContatoDto> contatoDtos;
-        contatoDtos = tratarContatoResponse(contatos);
-        return contatoDtos;
+    public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) {
+
+        //IllegalArgumentException
+        List<Contato> contatos = new ArrayList<>();
+        try{
+            contatos= contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
+            List<ContatoDto> contatoDtos;
+            contatoDtos = tratarContatoResponse(contatos);
+            return new ContatosPaginadosDto(contatoDtos,contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual));
+        }catch (IllegalArgumentException ie){
+            System.out.println("Erro =>" + ie);
+        }catch (Exception ex ){
+            System.out.println("Exception =>" + ex);
+        }
+        return null;
     }
 
     private List<ContatoDto> tratarContatoResponse(List<Contato> contatos) {
@@ -48,7 +58,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             ContatoDto contatoDto = new ContatoDto();
 
             //Campos interessantes a serem expostos
-            contatoDto.setId(contato.getId());
+            contatoDto.setIdContato(contato.getId());
             contatoDto.setCpf(contato.getCpf());
             contatoDto.setNome(contato.getNome());
             contatoDto.setTelefone(contato.getTelefone());

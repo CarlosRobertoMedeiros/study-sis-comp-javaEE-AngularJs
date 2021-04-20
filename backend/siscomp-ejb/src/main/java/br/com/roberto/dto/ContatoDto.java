@@ -1,28 +1,30 @@
 package br.com.roberto.dto;
 
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class ContatoDto {
 
-    private Long id;
+    private Long idContato;
     private String cpf;
     private String nome;
     private String telefone;
-    private LocalDateTime dataUltimaAtualizacao = LocalDateTime.now();
 
     public ContatoDto() {}
 
-    public ContatoDto(Long id, String cpf, String nome, String telefone, LocalDateTime dataUltimaAtualizacao) {
-        this.id = id;
+    public ContatoDto(Long idContato, String cpf, String nome, String telefone) {
+        this.idContato = idContato;
         this.cpf = cpf;
         this.nome = nome;
         this.telefone = telefone;
-        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public Long getIdContato() {
+        return idContato;
+    }
+
+    public void setIdContato(Long idContato) {
+        this.idContato = idContato;
     }
 
     public String getCpf() {
@@ -49,24 +51,17 @@ public class ContatoDto {
         this.telefone = telefone;
     }
 
-    public LocalDateTime getDataUltimaAtualizacao() {
-        return dataUltimaAtualizacao;
-    }
-
-    public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
-        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContatoDto that = (ContatoDto) o;
-        return id.equals(that.id);
+        return idContato.equals(that.idContato);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return Objects.hash(idContato);
     }
 }

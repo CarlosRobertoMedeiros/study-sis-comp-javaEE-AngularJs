@@ -1,6 +1,7 @@
 package br.com.roberto.v1.rest;
 
 import br.com.roberto.dto.ContatoDto;
+import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.exceptions.InfraEstruturaException;
 import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.service.ContatoService;
@@ -53,15 +54,15 @@ public class ContatoRest implements ContatoRestOpenApi {
     @Path("/contatos-paginados")
     public Response getContatosPaginados(@QueryParam("totalRegistrosPorPagina") int totalRegistrosPorPagina,
                                                  @QueryParam("paginaAtual") int paginaAtual){
-        List<ContatoDto> contatosPaginados;
         try {
-            contatosPaginados =  contatoService.getContatosPaginados(totalRegistrosPorPagina,paginaAtual);
-            return Response.ok(contatosPaginados).build();
+            ContatosPaginadosDto contatosPaginadosDto =  contatoService.getContatosPaginados(totalRegistrosPorPagina,paginaAtual);
+            return Response.ok(contatosPaginadosDto).build();
+        }catch (IllegalArgumentException ie){
+            logger.severe("Erro Sério => "+ie.getMessage());
         }catch (Exception e){
             logger.severe("Erro Sério => "+e.getMessage());
         }
         return null;
-
     }
 
 }

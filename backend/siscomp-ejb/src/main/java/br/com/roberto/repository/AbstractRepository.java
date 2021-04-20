@@ -22,7 +22,6 @@ public abstract class AbstractRepository<T, ID> {
         return em.createQuery("Select t from " + getClazz().getSimpleName() + " t").getResultList();
     }
 
-    /*
     public <T> Paginacao findAllWithPagination(int totalRegistrosPorPagina, int paginaAtual) {
         Paginacao<T> myPaginacao = new Paginacao<T>();
         myPaginacao.setTotaRegistros(Integer.valueOf(em.createQuery("Select count(t) from " + getClazz().getSimpleName() + " t").getSingleResult().toString()));
@@ -30,8 +29,6 @@ public abstract class AbstractRepository<T, ID> {
         myPaginacao.setPaginaAtual(paginaAtual);
         return myPaginacao;
     }
-
-     */
 
     public T findById(ID id) {
         return em.find(getClazz(), id);

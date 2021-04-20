@@ -41,7 +41,7 @@
             <scope>provided</scope>
         </dependency>
 
-        <dependency>
+         <dependency>
             <groupId>br.com.roberto</groupId>
             <artifactId>siscomp-ejb</artifactId>
             <version>1.0-SNAPSHOT</version>
