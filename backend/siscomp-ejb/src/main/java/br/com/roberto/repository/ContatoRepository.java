@@ -22,14 +22,14 @@ public class ContatoRepository extends AbstractRepository<Contato, Long>{
         jpql.append(" SELECT 													 ");
         jpql.append(" 	X.NU_CONTATO,											 ");
         jpql.append(" 	X.CO_CPF_CONTATO,										 ");
-//        jpql.append(" 	X.DT_ULTIMA_ATUALIZACAO_CONTATO,                         ");
+//      jpql.append(" 	X.DT_ULTIMA_ATUALIZACAO_CONTATO,                         ");
         jpql.append(" 	X.NO_NOME_CONTATO,                                       ");
         jpql.append(" 	X.CO_TELEFONE_CONTATO                                    ");
         jpql.append(" FROM                                                       ");
         jpql.append(" 	( SELECT                                                 ");
         jpql.append(" 		A.NU_CONTATO,                                        ");
         jpql.append(" 		A.CO_CPF_CONTATO,                                    ");
-//        jpql.append(" 		A.DT_ULTIMA_ATUALIZACAO_CONTATO,                     ");
+//      jpql.append(" 		A.DT_ULTIMA_ATUALIZACAO_CONTATO,                     ");
         jpql.append(" 		A.NO_NOME_CONTATO,                                   ");
         jpql.append(" 		A.CO_TELEFONE_CONTATO,                               ");
         jpql.append(" 		ROWNUM RNUM                                          ");
@@ -37,7 +37,7 @@ public class ContatoRepository extends AbstractRepository<Contato, Long>{
         jpql.append(" 	  	( SELECT                                             ");
         jpql.append(" 		  		NU_CONTATO,                                  ");
         jpql.append(" 		  		CO_CPF_CONTATO,                              ");
-//        jpql.append(" 		  		DT_ULTIMA_ATUALIZACAO_CONTATO,               ");
+//      jpql.append(" 		  		DT_ULTIMA_ATUALIZACAO_CONTATO,               ");
         jpql.append(" 		  		NO_NOME_CONTATO,                             ");
         jpql.append(" 		  		CO_TELEFONE_CONTATO                          ");
         jpql.append(" 	  		FROM                                             ");

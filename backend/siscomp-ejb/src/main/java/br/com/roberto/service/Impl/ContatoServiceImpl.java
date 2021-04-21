@@ -3,6 +3,7 @@ package br.com.roberto.service.Impl;
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.entity.Contato;
+import br.com.roberto.exceptions.InfraEstruturaException;
 import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.Paginacao;
@@ -27,32 +28,35 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     @Override
     public List<ContatoDto> getContatos() throws NegocioException {
-        List<Contato> contatos = contatoRepository.findAll();
-        List<ContatoDto> contatoDtos;
-        contatoDtos = tratarContatoResponse(contatos);
-        return contatoDtos;
+        List<Contato> contatos = null;
+        List<ContatoDto> contatosResponse = null;
+        try{
+            contatos = contatoRepository.findAll();
+            contatosResponse = tratarContatoResponse(contatos);
+            return contatosResponse;
+        }catch (Exception e){
+            throw new NegocioException("Erro ao retornar os dados dos contatos ");
+        }
     }
 
     @Override
-    public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) {
+    public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) throws NegocioException, InfraEstruturaException {
 
-        //IllegalArgumentException
         List<Contato> contatos = new ArrayList<>();
-        try{
-            contatos= contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
-            List<ContatoDto> contatoDtos;
-            contatoDtos = tratarContatoResponse(contatos);
-            return new ContatosPaginadosDto(contatoDtos,contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual));
-        }catch (IllegalArgumentException ie){
-            System.out.println("Erro =>" + ie);
-        }catch (Exception ex ){
-            System.out.println("Exception =>" + ex);
+        List<ContatoDto> contatosResponse;
+        Paginacao<Contato> dadosPaginados = null;
+        try {
+            contatos = contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
+            contatosResponse = tratarContatoResponse(contatos);
+            dadosPaginados = contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual);
+            return new ContatosPaginadosDto(contatosResponse, dadosPaginados);
+        }catch (Exception e){
+            throw new NegocioException("Erro ao retornar os dados paginados de contatos");
         }
-        return null;
     }
 
     private List<ContatoDto> tratarContatoResponse(List<Contato> contatos) {
-        List<ContatoDto> contatoDtos = new ArrayList<>();
+        List<ContatoDto> contatosDto = new ArrayList<>();
 
         for (Contato contato: contatos) {
             ContatoDto contatoDto = new ContatoDto();
@@ -63,8 +67,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             contatoDto.setNome(contato.getNome());
             contatoDto.setTelefone(contato.getTelefone());
             //contatoDto.setDataUltimaAtualizacao(contato.getDataUltimaAtualizacao());
-            contatoDtos.add(contatoDto);
+            contatosDto.add(contatoDto);
         }
-        return contatoDtos;
+        return contatosDto;
     }
 }

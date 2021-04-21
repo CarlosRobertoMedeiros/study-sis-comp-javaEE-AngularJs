@@ -7,12 +7,14 @@ import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.service.ContatoService;
 import br.com.roberto.v1.openapi.ContatoRestOpenApi;
 
+import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.ws.rs.*;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -22,7 +24,7 @@ public class ContatoRest implements ContatoRestOpenApi {
 
     private Logger logger = Logger.getLogger(ContatoRest.class.getName());
 
-    @Inject
+    @EJB
     private ContatoService contatoService;
 
     /**
@@ -31,38 +33,44 @@ public class ContatoRest implements ContatoRestOpenApi {
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @Deprecated
     public Response getContatos(){
+
         List<ContatoDto> contatosResponse = null;
-        contatosResponse = new ArrayList<>();
 
         try {
-            for (ContatoDto contatoDto : contatoService.getContatos()) {
-                contatosResponse.add(contatoDto);
-            }
-        } catch (NegocioException e) {
-            logger.severe(e.getMessage());
+            contatosResponse =  contatoService.getContatos();
+            return Response.ok(contatosResponse).build();
+        } catch (NegocioException ne) {
             return Response.status(Response.Status.fromStatusCode(NegocioException.CODIGO)).build();
-        }catch (Exception e) {
-            logger.severe(e.getMessage());
+        }catch (InfraEstruturaException infra) {
+            logger.severe(infra.getMessage());
             return Response.status(Response.Status.fromStatusCode(InfraEstruturaException.CODIGO)).build();
         }
-        return Response.ok(contatosResponse).build();
     }
 
+    /**
+     * Lista os contatos respeitando a paginação
+     * @param totalRegistrosPorPagina
+     * @param paginaAtual
+     * @return
+     */
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/contatos-paginados")
     public Response getContatosPaginados(@QueryParam("totalRegistrosPorPagina") int totalRegistrosPorPagina,
                                                  @QueryParam("paginaAtual") int paginaAtual){
+
+        ContatosPaginadosDto contatoResponse = null;
         try {
-            ContatosPaginadosDto contatosPaginadosDto =  contatoService.getContatosPaginados(totalRegistrosPorPagina,paginaAtual);
-            return Response.ok(contatosPaginadosDto).build();
-        }catch (IllegalArgumentException ie){
-            logger.severe("Erro Sério => "+ie.getMessage());
-        }catch (Exception e){
-            logger.severe("Erro Sério => "+e.getMessage());
+            contatoResponse =  contatoService.getContatosPaginados(totalRegistrosPorPagina,paginaAtual);
+            return Response.ok(contatoResponse).build();
+        }catch (NegocioException ne){
+            return Response.status(NegocioException.CODIGO).build();
+        }catch (InfraEstruturaException infra){
+            logger.severe(infra.getMessage());
+            return Response.status(InfraEstruturaException.CODIGO).build();
         }
-        return null;
     }
 
 }

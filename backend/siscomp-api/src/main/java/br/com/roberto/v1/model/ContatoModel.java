@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDateTime;
 import java.util.Objects;
 
 
@@ -18,7 +17,7 @@ public class ContatoModel {
     @ApiModelProperty(value = "Nome do Contato", required = true)
     private String nome;
     private String telefone;
-    private LocalDateTime dataUltimaAtualizacao = LocalDateTime.now();
+    //private LocalDateTime dataUltimaAtualizacao = LocalDateTime.now();
 
     public ContatoModel() { }
 
@@ -61,13 +60,19 @@ public class ContatoModel {
         this.telefone = telefone;
     }
 
+    /*
     public LocalDateTime getDataUltimaAtualizacao() {
         return dataUltimaAtualizacao;
     }
 
+     */
+
+    /*
     public void setDataUltimaAtualizacao(LocalDateTime dataUltimaAtualizacao) {
         this.dataUltimaAtualizacao = dataUltimaAtualizacao;
     }
+
+     */
 
     @Override
     public boolean equals(Object o) {
