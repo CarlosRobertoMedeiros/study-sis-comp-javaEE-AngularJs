@@ -42,4 +42,6 @@ public abstract class AbstractRepository<T, ID> {
         em.persist(entity);
     }
 
+    public void remove(T entity) {em.remove(entity);}
+
 }

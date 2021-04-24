@@ -1,6 +1,8 @@
 package br.com.roberto.exceptions;
 
-public class IntegracaoException extends Exception {
+import java.io.Serializable;
+
+public class IntegracaoException extends Exception implements Serializable {
 
 	public static final int CODIGO = 400;
 

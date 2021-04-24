@@ -1,6 +1,8 @@
 package br.com.roberto.exceptions;
 
-public class InfraEstruturaException extends Exception {
+import java.io.Serializable;
+
+public class InfraEstruturaException extends Exception implements Serializable {
 
 	/**
 	 *

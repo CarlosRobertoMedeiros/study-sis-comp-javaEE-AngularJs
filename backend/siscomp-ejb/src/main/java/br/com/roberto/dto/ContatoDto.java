@@ -11,12 +11,17 @@ public class ContatoDto {
 
     public ContatoDto() {}
 
+    public ContatoDto(String cpf, String nome, String telefone) {
+        this.cpf = cpf;
+        this.nome = nome;
+        this.telefone = telefone;
+    }
+
     public ContatoDto(Long idContato, String cpf, String nome, String telefone) {
         this.idContato = idContato;
         this.cpf = cpf;
         this.nome = nome;
         this.telefone = telefone;
-
     }
 
     public Long getIdContato() {

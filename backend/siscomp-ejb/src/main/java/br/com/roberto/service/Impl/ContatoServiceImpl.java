@@ -55,6 +55,86 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         }
     }
 
+    @Override
+    public ContatoDto getContatosById(Long id) throws NegocioException, InfraEstruturaException {
+        Contato contato = null;
+        ContatoDto contatoResponse = null;
+
+        contato = contatoRepository.findById(id);
+
+        if (contato.getId()==null){
+            throw new NegocioException("O Contato é Obrigatório");
+        }
+        contatoResponse = converterContatoResponse(contato);
+        return contatoResponse;
+
+    }
+
+    @Override
+    public ContatoDto insereContato(ContatoDto contatoDto) throws NegocioException, InfraEstruturaException {
+        Contato contato = null;
+        ContatoDto contatoResponse = null;
+
+        contato = converterContatoDTO(contatoDto);
+        if (contato.getCpf()==null){
+            throw new NegocioException("O Cpf é Obrigatório");
+        }
+        contatoRepository.persist(contato);
+        contatoResponse = converterContatoResponse(contato);
+        return contatoResponse;
+
+    }
+
+    @Override
+    public ContatoDto atualizaContato(Long id, ContatoDto novoContatoDTO) throws NegocioException, InfraEstruturaException {
+        Contato contato = null;
+        Contato contatoAtualizado = null;
+
+        contato = contatoRepository.findById(id);
+        if (contato == null) {
+            throw new NegocioException(" O Contato informado é inexistente");
+        }
+        contatoAtualizado = converterContatoDTO(novoContatoDTO);
+
+        contato.setCpf(contatoAtualizado.getCpf());
+        contato.setNome(contatoAtualizado.getNome());
+        contato.setTelefone(contatoAtualizado.getTelefone());
+
+        contatoRepository.merge(contato);
+        return converterContatoResponse(contato);
+    }
+
+    @Override
+    public void excluiContatoById(Long id) throws NegocioException, InfraEstruturaException {
+
+        Contato contato = contatoRepository.findById(id);
+        if (contato==null){
+            throw new NegocioException(" O Contato informado é inexistente");
+        }
+        contatoRepository.remove(contato);
+    }
+
+    private Contato converterContatoDTO(ContatoDto contatoDto) {
+        Contato contato = new Contato();
+        contato.setNome(contatoDto.getNome());
+        contato.setTelefone(contatoDto.getTelefone());
+        contato.setCpf(contatoDto.getCpf());
+        return contato;
+
+    }
+
+    private ContatoDto converterContatoResponse(Contato contato) {
+        ContatoDto contatoResponse = new ContatoDto();
+
+        contatoResponse.setIdContato(contato.getId());
+        contatoResponse.setNome(contato.getNome());
+        contatoResponse.setTelefone(contato.getTelefone());
+        contatoResponse.setCpf(contato.getCpf());
+        return contatoResponse;
+
+    }
+
+
     private List<ContatoDto> tratarContatoResponse(List<Contato> contatos) {
         List<ContatoDto> contatosDto = new ArrayList<>();
 
@@ -72,3 +152,20 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         return contatosDto;
     }
 }
+/*
+Todo:
+    - Solução Backend
+         - Implementar as classes de ExceptionMapper e WebApplicationException
+         - Tentar respeitar a segregação de dependências
+         - No pacote de negócios a consulta por id que deve chamar as outras camadas
+         - Implementar os testes com mock das camandas
+         - Criar um ambiente de teste caixa branca - Teste Unitário
+         - Implementar solução JWT usando KeyCloack
+
+    - Solução FrontEnd
+        - Implementar o Front End
+ */
+
+
+//
+//

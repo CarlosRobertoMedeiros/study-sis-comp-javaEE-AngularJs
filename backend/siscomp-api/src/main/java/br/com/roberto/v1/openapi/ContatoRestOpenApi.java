@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
 
@@ -34,5 +35,36 @@ public interface ContatoRestOpenApi {
             @ApiResponse(code = 500, message = "Internal Server Error.")})
     Response getContatosPaginados(@QueryParam("totalRegistrosPorPagina") int totalRegistrosPorPagina,
                                   @QueryParam("paginaAtual") int paginaAtual);
+    @ApiOperation(value = "Inclusão de Dados do Contato", notes = "Operação responsável em incluir os dados do Contato.",
+            response = ContatoModel.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Sucesso", response = ContatoModel.class),
+            @ApiResponse(code = 400, message = "Requisição inválida."),
+            @ApiResponse(code = 401, message = "Não Autorizado."),
+            @ApiResponse(code = 403, message = "Sem prefil para executar a operação"),
+            @ApiResponse(code = 412, message = "Erro Negócio"),
+            @ApiResponse(code = 500, message = "Internal Server Error.") })
+    Response insereContato(ContatoModel contato);
 
+    @ApiOperation(value = "Exclusão de Dados do Contato", notes = "Operação responsável por excluir os dados do Contato.",
+            response = ContatoModel.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Sucesso", response = ContatoModel.class),
+            @ApiResponse(code = 400, message = "Requisição inválida."),
+            @ApiResponse(code = 401, message = "Não Autorizado."),
+            @ApiResponse(code = 403, message = "Sem prefil para executar a operação"),
+            @ApiResponse(code = 412, message = "Erro Negócio"),
+            @ApiResponse(code = 500, message = "Internal Server Error.") })
+    Response excluiContato(Long id);
+
+    @ApiOperation(value = "Alteração dos dados do Contato", notes = "Operação responsável por alterar dados do Contato.",
+            response = ContatoModel.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Sucesso", response = ContatoModel.class),
+            @ApiResponse(code = 400, message = "Requisição inválida."),
+            @ApiResponse(code = 401, message = "Não Autorizado."),
+            @ApiResponse(code = 403, message = "Sem prefil para executar a operação"),
+            @ApiResponse(code = 412, message = "Erro Negócio"),
+            @ApiResponse(code = 500, message = "Internal Server Error.") })
+    Response atualizaContato(Long id, ContatoModel novoContato);
 }
