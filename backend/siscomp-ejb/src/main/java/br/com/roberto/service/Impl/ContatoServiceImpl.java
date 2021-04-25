@@ -3,16 +3,12 @@ package br.com.roberto.service.Impl;
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.entity.Contato;
-import br.com.roberto.exceptions.InfraEstruturaException;
 import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.Paginacao;
 import br.com.roberto.service.ContatoService;
 
-import javax.ejb.Local;
-import javax.ejb.Stateless;
-import javax.ejb.TransactionManagement;
-import javax.ejb.TransactionManagementType;
+import javax.ejb.*;
 import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -27,7 +23,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     private ContatoRepository contatoRepository;
 
     @Override
-    public List<ContatoDto> getContatos() throws NegocioException {
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public List<ContatoDto> getContatos(){
         List<Contato> contatos = null;
         List<ContatoDto> contatosResponse = null;
         try{
@@ -40,7 +37,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     }
 
     @Override
-    public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) throws NegocioException, InfraEstruturaException {
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual){
 
         List<Contato> contatos = new ArrayList<>();
         List<ContatoDto> contatosResponse;
@@ -56,7 +54,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     }
 
     @Override
-    public ContatoDto getContatosById(Long id) throws NegocioException, InfraEstruturaException {
+    @TransactionAttribute(TransactionAttributeType.SUPPORTS)
+    public ContatoDto getContatosById(Long id){
         Contato contato = null;
         ContatoDto contatoResponse = null;
 
@@ -71,7 +70,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     }
 
     @Override
-    public ContatoDto insereContato(ContatoDto contatoDto) throws NegocioException, InfraEstruturaException {
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public ContatoDto insereContato(ContatoDto contatoDto) {
         Contato contato = null;
         ContatoDto contatoResponse = null;
 
@@ -86,7 +86,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     }
 
     @Override
-    public ContatoDto atualizaContato(Long id, ContatoDto novoContatoDTO) throws NegocioException, InfraEstruturaException {
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public ContatoDto atualizaContato(Long id, ContatoDto novoContatoDTO) {
         Contato contato = null;
         Contato contatoAtualizado = null;
 
@@ -105,7 +106,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     }
 
     @Override
-    public void excluiContatoById(Long id) throws NegocioException, InfraEstruturaException {
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void excluiContatoById(Long id) {
 
         Contato contato = contatoRepository.findById(id);
         if (contato==null){
@@ -155,12 +157,13 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 /*
 Todo:
     - Solução Backend
-         - Implementar as classes de ExceptionMapper e WebApplicationException
          - Tentar respeitar a segregação de dependências
          - No pacote de negócios a consulta por id que deve chamar as outras camadas
+         - Implementar o BeanUtils
+
          - Implementar os testes com mock das camandas
          - Criar um ambiente de teste caixa branca - Teste Unitário
-         - Implementar solução JWT usando KeyCloack
+         - Implementar solução JWT usando KeyCloack -- Após o frontEnd
 
     - Solução FrontEnd
         - Implementar o Front End
