@@ -2,8 +2,6 @@ package br.com.roberto.v1.rest;
 
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
-import br.com.roberto.exceptions.InfraEstruturaException;
-import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.service.ContatoService;
 import br.com.roberto.v1.conversores.ContatoDTOConversor;
 import br.com.roberto.v1.model.ContatoModel;
@@ -21,8 +19,8 @@ import java.util.logging.Logger;
 @ApplicationScoped
 
 @Path("v1/contatos")
-@Produces(MediaType.APPLICATION_JSON )
-@Consumes(MediaType.APPLICATION_JSON )
+@Produces(MediaType.APPLICATION_JSON+";charset=utf-8")
+@Consumes(MediaType.APPLICATION_JSON+";charset=utf-8")
 public class ContatoRest implements ContatoRestOpenApi {
 
     private Logger logger = Logger.getLogger(ContatoRest.class.getName());
