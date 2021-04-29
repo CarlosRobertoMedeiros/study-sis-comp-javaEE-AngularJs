@@ -24,6 +24,10 @@
         <!-- Dependências Providas pela Especificação -->
         <javaee-api-version>7.0</javaee-api-version>
 
+        <!-- Dependências de Teste -->
+        <junit-version>4.12</junit-version>
+        <mockito-all-version>1.10.19</mockito-all-version>
+
     </properties>
 
     <dependencyManagement>
