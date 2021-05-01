@@ -1,4 +1,4 @@
-package br.com.roberto.service.Impl;
+package br.com.roberto.service.impl;
 
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
@@ -114,6 +114,14 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             throw new NegocioException(" O Contato informado é inexistente");
         }
         contatoRepository.remove(contato);
+    }
+
+    @Override
+    public int somar(int a, int b) {
+        if (a > 2) {
+            return a + b;
+        }
+        return a + b + 2;
     }
 
     private Contato converterContatoDTO(ContatoDto contatoDto) {

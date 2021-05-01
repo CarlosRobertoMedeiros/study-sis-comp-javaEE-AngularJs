@@ -2,29 +2,36 @@ package br.com.roberto.service.impl;
 
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.entity.Contato;
+import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-
+@RunWith(MockitoJUnitRunner.class)
 public class ContatoServiceImplTest{
 
     @Mock
-    private List<Contato> contatosMocks = null;
+    private List<Contato> contatosMocks;
 
     @Mock
-    private List<ContatoDto> contatosDtoMocks = null;
+    private List<ContatoDto> contatosDtoMocks;
 
     @Mock
-    private ContatoRepository contatoRepository = null;
+    private ContatoRepository contatoRepository;
+
+    private ContatoServiceImpl contatoService = new ContatoServiceImpl();
+
 
     private void carregaContatosMocks(){
         this.contatosMocks = new ArrayList<>();
@@ -38,19 +45,34 @@ public class ContatoServiceImplTest{
         MockitoAnnotations.initMocks(this);
         this.carregaContatosMocks();
         Mockito.when(contatoRepository.findAll()).thenReturn(contatosMocks);
+        //Mockito.when(contatoService.somar(1,2)).thenReturn(3);
     }
-
 
     @Test
     public void getContatos() {
-        List<Contato> contatoInterno = contatoRepository.findAll();
-
-        contatoInterno.forEach(contato -> {
-            contatosDtoMocks.add(new ContatoDto(contato.getId(),contato.getCpf(),contato.getNome(),contato.getTelefone()));
-        });
-
+        List<ContatoDto> contatoInterno = contatoService.getContatos();
         assertEquals(contatoInterno.size(),3);
     }
+
+    @Test(expected = NullPointerException.class)
+    public void getContatosEmCasoDeErro() {
+        contatoRepository = null;
+        List<Contato> contatoInterno = contatoRepository.findAll();
+        Mockito.when(contatoInterno==null)
+                .thenThrow(new NegocioException("Não foi Possível retornar contatos"));
+    }
+
+    @Test
+    public void testaSomar(){
+        assertEquals(contatoService.somar(1, 2),5);
+    }
+
+    @Test
+    public void testaSomar4(){
+        assertEquals(contatoService.somar(3, 1),4);
+    }
+
+
 
 //    public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) {
 //        return null;
