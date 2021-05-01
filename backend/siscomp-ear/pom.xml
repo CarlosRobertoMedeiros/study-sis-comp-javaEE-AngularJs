@@ -2,86 +2,137 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <parent>
-        <artifactId>siscomp</artifactId>
-        <groupId>br.com.roberto</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
 
     <name>siscomp-ear</name>
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>br.com.roberto</groupId>
     <artifactId>siscomp-ear</artifactId>
     <packaging>ear</packaging>
-    <modelVersion>4.0.0</modelVersion>
-    <version>1.0-SNAPSHOT</version>
+    <version>${siscomp-version}</version>
+
+    <parent>
+        <groupId>br.com.roberto</groupId>
+        <artifactId>siscomp</artifactId>
+        <version>${siscomp-version}</version>
+    </parent>
 
     <properties>
         <ear.plugin.version>3.0.2</ear.plugin.version>
     </properties>
+
+    <build>
+        <finalName>${project.parent.artifactId}</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/application/META-INF</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <version>${ear.plugin.version}</version>
+                <configuration>
+                    <!-- Tell Maven we are using Java EE -->
+                    <version>7</version>
+                    <!-- Use Java EE ear libraries as needed. Java EE ear libraries
+                        are in easy way to package any libraries needed in the ear, and automatically
+                        have any modules (EJB-JARs and WARs) use them -->
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <modules>
+                        <ejbModule>
+                            <groupId>br.com.roberto</groupId>
+                            <artifactId>siscomp-ejb</artifactId>
+                            <uri>siscomp-ejb.jar</uri>
+                        </ejbModule>
+                        <webModule>
+                            <groupId>br.com.roberto</groupId>
+                            <artifactId>siscomp-api</artifactId>
+                            <contextRoot>/siscomp-api</contextRoot>
+                            <uri>siscomp-api.war</uri>
+                        </webModule>
+                    </modules>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+<!--        <finalName>siscomp-ear-${siscomp-version}</finalName>-->
+    </build>
 
     <dependencies>
 
         <dependency>
             <groupId>br.com.roberto</groupId>
             <artifactId>siscomp-ejb</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${siscomp-version}</version>
             <type>ejb</type>
         </dependency>
 
         <dependency>
             <groupId>br.com.roberto</groupId>
             <artifactId>siscomp-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${siscomp-version}</version>
             <type>war</type>
         </dependency>
 
     </dependencies>
 
-    <profiles>
-        <profile>
-            <id>build</id>
+<!--    <profiles>-->
+<!--        <profile>-->
+<!--            <id>build</id>-->
 
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <build>
-                <finalName>${project.parent.artifactId}</finalName>
-                <resources>
-                    <resource>
-                        <directory>src/main/application/META-INF</directory>
-                        <filtering>true</filtering>
-                        <includes>
-                            <include>**/*.xml</include>
-                        </includes>
-                    </resource>
-                </resources>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-ear-plugin</artifactId>
-                        <version>${ear.plugin.version}</version>
-                        <configuration>
-                            <!-- Tell Maven we are using Java EE -->
-                            <version>7</version>
-                            <!-- Use Java EE ear libraries as needed. Java EE ear libraries
-                                are in easy way to package any libraries needed in the ear, and automatically
-                                have any modules (EJB-JARs and WARs) use them -->
-                            <defaultLibBundleDir>lib</defaultLibBundleDir>
-                            <modules>
-                                <ejbModule>
-                                    <groupId>br.com.roberto</groupId>
-                                    <artifactId>siscomp-ejb</artifactId>
-                                </ejbModule>
-                                <webModule>
-                                    <groupId>br.com.roberto</groupId>
-                                    <artifactId>siscomp-api</artifactId>
-                                    <contextRoot>/siscomp-api</contextRoot>
-                                </webModule>
-                            </modules>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
+<!--            <activation>-->
+<!--                <activeByDefault>true</activeByDefault>-->
+<!--            </activation>-->
+<!--            <build>-->
+<!--                <finalName>${project.parent.artifactId}</finalName>-->
+<!--                <resources>-->
+<!--                    <resource>-->
+<!--                        <directory>src/main/application/META-INF</directory>-->
+<!--                        <filtering>true</filtering>-->
+<!--                        <includes>-->
+<!--                            <include>**/*.xml</include>-->
+<!--                        </includes>-->
+<!--                    </resource>-->
+<!--                </resources>-->
+<!--                <plugins>-->
+<!--                    <plugin>-->
+<!--                        <groupId>org.apache.maven.plugins</groupId>-->
+<!--                        <artifactId>maven-ear-plugin</artifactId>-->
+<!--                        <version>${ear.plugin.version}</version>-->
+<!--                        <configuration>-->
+<!--                            &lt;!&ndash; Tell Maven we are using Java EE &ndash;&gt;-->
+<!--                            <version>7</version>-->
+<!--                            &lt;!&ndash; Use Java EE ear libraries as needed. Java EE ear libraries-->
+<!--                                are in easy way to package any libraries needed in the ear, and automatically-->
+<!--                                have any modules (EJB-JARs and WARs) use them &ndash;&gt;-->
+<!--                            <defaultLibBundleDir>lib</defaultLibBundleDir>-->
+<!--                            <modules>-->
+<!--                                <ejbModule>-->
+<!--                                    <groupId>br.com.roberto</groupId>-->
+<!--                                    <artifactId>siscomp-ejb</artifactId>-->
+<!--                                </ejbModule>-->
+<!--                                <webModule>-->
+<!--                                    <groupId>br.com.roberto</groupId>-->
+<!--                                    <artifactId>siscomp-api</artifactId>-->
+<!--                                    <contextRoot>/siscomp-api</contextRoot>-->
+<!--                                </webModule>-->
+<!--                            </modules>-->
+<!--                        </configuration>-->
+<!--                    </plugin>-->
+<!--                </plugins>-->
+<!--            </build>-->
+<!--        </profile>-->
+<!--    </profiles>-->
 
 </project>

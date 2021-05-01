@@ -2,28 +2,58 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
-    <parent>
-        <artifactId>siscomp</artifactId>
-        <groupId>br.com.roberto</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
+    <modelVersion>4.0.0</modelVersion>
     <name>siscomp-api</name>
+    <groupId>br.com.roberto</groupId>
     <artifactId>siscomp-api</artifactId>
     <packaging>war</packaging>
-    <modelVersion>4.0.0</modelVersion>
+    <version>${siscomp-version}</version>
 
-    <properties>
+    <parent>
+        <groupId>br.com.roberto</groupId>
+        <artifactId>siscomp</artifactId>
+        <version>${siscomp-version}</version>
+    </parent>
 
-        <javaee-api-version>7.0</javaee-api-version>
-        <cdi-api-version>2.0</cdi-api-version>
-        <swagger-version>1.5.19</swagger-version>
-        <rest-assured-version>4.3.3</rest-assured-version>
-        <junit-version>4.12</junit-version>
-        <hamcrest-all-version>1.3</hamcrest-all-version>
+    <build>
 
-    </properties>
+        <plugins>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.3</version>
+                <executions>
+                    <execution>
+                        <id>gerar-war</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>exploded</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <webResources>
+                        <resource>
+                            <!-- this is relative to the pom.xml directory -->
+                            <directory>src/main/resources</directory>
+                            <filtering>true</filtering>
+                        </resource>
+
+                    </webResources>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+        </plugins>
+        <finalName>siscomp-api-${siscomp-version}</finalName>
+
+    </build>
 
     <dependencies>
 
@@ -113,79 +143,13 @@
             <version>${hamcrest-all-version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>br.com.roberto</groupId>
+            <artifactId>siscomp-ejb</artifactId>
+            <version>${siscomp-version}</version>
+            <scope>compile</scope>
+        </dependency>
 
     </dependencies>
-
-<!--    <build>-->
-<!--        <finalName>siscomp-api</finalName>-->
-<!--        <plugins>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-war-plugin</artifactId>-->
-<!--                <version>3.2.3</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>gerar-war</id>-->
-<!--                        <phase>compile</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>exploded</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--                <configuration>-->
-<!--                    <failOnMissingWebXml>false</failOnMissingWebXml>-->
-<!--                    <webResources>-->
-<!--                        <resource>-->
-<!--                            &lt;!&ndash; this is relative to the pom.xml directory &ndash;&gt;-->
-<!--                            <directory>src/main/resources</directory>-->
-<!--                            <filtering>true</filtering>-->
-
-<!--                        </resource>-->
-<!--                    </webResources>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <addClasspath>true</addClasspath>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--        </plugins>-->
-
-<!--    </build>-->
-    <build>
-        <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-war-plugin</artifactId>
-                <version>3.2.3</version>
-                <executions>
-                    <execution>
-                        <id>gerar-war</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>exploded</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <webResources>
-                        <resource>
-                            <!-- this is relative to the pom.xml directory -->
-                            <directory>src/main/resources</directory>
-                            <filtering>true</filtering>
-                        </resource>
-
-                    </webResources>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>

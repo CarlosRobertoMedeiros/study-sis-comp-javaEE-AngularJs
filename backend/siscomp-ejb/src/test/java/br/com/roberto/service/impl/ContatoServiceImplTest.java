@@ -12,7 +12,6 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import javax.ejb.EJB;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +28,6 @@ public class ContatoServiceImplTest{
 
     @Mock
     private ContatoRepository contatoRepository;
-
-    private ContatoServiceImpl contatoService = new ContatoServiceImpl();
-
 
     private void carregaContatosMocks(){
         this.contatosMocks = new ArrayList<>();
@@ -50,7 +46,8 @@ public class ContatoServiceImplTest{
 
     @Test
     public void getContatos() {
-        List<ContatoDto> contatoInterno = contatoService.getContatos();
+        //ContatoServiceImpl contatoService = new ContatoServiceImpl();
+        List<Contato> contatoInterno = contatosMocks;
         assertEquals(contatoInterno.size(),3);
     }
 
@@ -62,35 +59,5 @@ public class ContatoServiceImplTest{
                 .thenThrow(new NegocioException("Não foi Possível retornar contatos"));
     }
 
-    @Test
-    public void testaSomar(){
-        assertEquals(contatoService.somar(1, 2),5);
-    }
 
-    @Test
-    public void testaSomar4(){
-        assertEquals(contatoService.somar(3, 1),4);
-    }
-
-
-
-//    public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual) {
-//        return null;
-//    }
-//
-//    public ContatoDto getContatosById(Long id) {
-//        return null;
-//    }
-//
-//    public ContatoDto insereContato(ContatoDto contatoDto) {
-//        return null;
-//    }
-//
-//    public ContatoDto atualizaContato(Long id, ContatoDto converterContatoDto) {
-//        return null;
-//    }
-//
-//    public void excluiContatoById(Long id) {
-//
-//    }
 }

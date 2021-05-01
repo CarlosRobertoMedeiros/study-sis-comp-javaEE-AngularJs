@@ -116,14 +116,6 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         contatoRepository.remove(contato);
     }
 
-    @Override
-    public int somar(int a, int b) {
-        if (a > 2) {
-            return a + b;
-        }
-        return a + b + 2;
-    }
-
     private Contato converterContatoDTO(ContatoDto contatoDto) {
         Contato contato = new Contato();
         contato.setNome(contatoDto.getNome());
@@ -143,7 +135,6 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         return contatoResponse;
 
     }
-
 
     private List<ContatoDto> tratarContatoResponse(List<Contato> contatos) {
         List<ContatoDto> contatosDto = new ArrayList<>();

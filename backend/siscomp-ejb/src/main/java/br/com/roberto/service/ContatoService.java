@@ -14,6 +14,4 @@ public interface ContatoService {
     ContatoDto insereContato(ContatoDto contatoDto);
     ContatoDto atualizaContato(Long id, ContatoDto converterContatoDto);
     void excluiContatoById(Long id);
-    int somar(int a, int b);
-
 }
