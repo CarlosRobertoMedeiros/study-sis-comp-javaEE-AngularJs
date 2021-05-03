@@ -1,41 +1,62 @@
 package br.com.roberto.v1.model;
 
-import org.junit.Before;
-import org.junit.Test;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.Objects;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ContatoModelTest {
 
-    private List<String> items;
+    private Long idContato;
+    private String cpf;
+    private String nome;
+    private String telefone;
 
-    @Before
-    public void init() throws Exception{
-       items = Arrays.asList("John", "James", "Julia", "Jim");
-   }
+    public Long getIdContato() {
+        return idContato;
+    }
 
-   @Test
-   public void testAssetThatExamples(){
+    public void setIdContato(Long idContato) {
+        this.idContato = idContato;
+    }
 
-       // items list should have James and Jim
-       assertThat(items, hasItems("James", "Jim"));
+    public String getCpf() {
+        return cpf;
+    }
 
-       // Every item in the list should have the character 'J'
-       assertThat(items, everyItem(containsString("J")));
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
 
-       // check all of the matchers
-       assertThat("Once", allOf(equalTo("Once"), startsWith("O")));
+    public String getNome() {
+        return nome;
+    }
 
-       // negation of all of the matchers
-       assertThat("Once", not(allOf(equalTo("test"), containsString("test"))));
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
+    public String getTelefone() {
+        return telefone;
+    }
 
-   }
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ContatoModelTest that = (ContatoModelTest) o;
+        return idContato.equals(that.idContato);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(idContato);
+    }
 }
