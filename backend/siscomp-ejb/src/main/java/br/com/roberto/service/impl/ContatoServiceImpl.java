@@ -158,7 +158,7 @@ Todo:
     - Solução Backend
          - Tentar respeitar a segregação de dependências
          - No pacote de negócios a consulta por id que deve chamar as outras camadas
-         - Implementar o BeanUtils
+         - Implementar o BeanUtils *Não esquecer
 
          - Implementar os testes com mock das camandas
          - Criar um ambiente de teste caixa branca - Teste Unitário
