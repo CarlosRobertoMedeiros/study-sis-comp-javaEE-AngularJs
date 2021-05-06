@@ -24,10 +24,16 @@
         <!-- Versão do Sistema -->
         <siscomp-version>0.0.0.1</siscomp-version>
 
+        <!--Lib Lombok -->
+        <lombok-version>1.18.18</lombok-version>
+
         <!-- Dependências Providas pela Especificação -->
         <javaee-api-version>7.0</javaee-api-version>
         <cdi-api-version>2.0</cdi-api-version>
+
+        <!-- Dependências Inseridas -->
         <jackson-annotations-version>2.9.9</jackson-annotations-version>
+        <commons-beanutils-version>1.9.4</commons-beanutils-version>
 
         <!-- Dependências de Documentação -->
         <swagger-version>1.5.19</swagger-version>
@@ -37,7 +43,6 @@
         <mockito-all-version>1.10.19</mockito-all-version>
         <rest-assured-version>4.3.3</rest-assured-version>
         <hamcrest-all-version>1.3</hamcrest-all-version>
-
 
     </properties>
 
@@ -49,6 +54,13 @@
                 <artifactId>javaee-api</artifactId>
                 <version>${javaee-api-version}</version>
                 <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok-version}</version>
+                <scope>compile</scope>
             </dependency>
         </dependencies>
 

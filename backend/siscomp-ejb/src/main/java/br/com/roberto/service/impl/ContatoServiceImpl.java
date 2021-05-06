@@ -1,16 +1,19 @@
 package br.com.roberto.service.impl;
 
 import br.com.roberto.dto.ContatoDto;
+import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.entity.Contato;
 import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.Paginacao;
 import br.com.roberto.service.ContatoService;
+import org.apache.commons.beanutils.BeanUtils;
 
 import javax.ejb.*;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,7 +33,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         try{
             contatos = contatoRepository.findAll();
             contatosResponse = tratarContatoResponse(contatos);
-            return contatosResponse;
+            ContatosDto contatosDto = new ContatosDto(contatosResponse);
+            return contatosDto.getContatoDtos();
         }catch (Exception e){
             throw new NegocioException("Erro ao retornar os dados dos contatos ");
         }
@@ -47,7 +51,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             contatos = contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
             contatosResponse = tratarContatoResponse(contatos);
             dadosPaginados = contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual);
-            return new ContatosPaginadosDto(contatosResponse, dadosPaginados);
+            return  new ContatosPaginadosDto(contatosResponse, dadosPaginados);
         }catch (Exception e){
             throw new NegocioException("Erro ao retornar os dados paginados de contatos");
         }
@@ -61,7 +65,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
         contato = contatoRepository.findById(id);
 
-        if (contato.getId()==null){
+        if (contato.getIdContato()==null){
             throw new NegocioException("O Contato é Obrigatório");
         }
         contatoResponse = converterContatoResponse(contato);
@@ -93,7 +97,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
         contato = contatoRepository.findById(id);
         if (contato == null) {
-            throw new NegocioException(" O Contato informado é inexistente");
+            throw new NegocioException("O Contato informado é inexistente");
         }
         contatoAtualizado = converterContatoDTO(novoContatoDTO);
 
@@ -118,50 +122,48 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     private Contato converterContatoDTO(ContatoDto contatoDto) {
         Contato contato = new Contato();
-        contato.setNome(contatoDto.getNome());
-        contato.setTelefone(contatoDto.getTelefone());
-        contato.setCpf(contatoDto.getCpf());
-        return contato;
 
+        try {
+            BeanUtils.copyProperties(contato, contatoDto);
+        } catch (IllegalAccessException | InvocationTargetException e){
+            throw new NegocioException("Problema na conversão interna das mensagens",e);
+        }
+        return contato;
     }
 
     private ContatoDto converterContatoResponse(Contato contato) {
         ContatoDto contatoResponse = new ContatoDto();
 
-        contatoResponse.setIdContato(contato.getId());
-        contatoResponse.setNome(contato.getNome());
-        contatoResponse.setTelefone(contato.getTelefone());
-        contatoResponse.setCpf(contato.getCpf());
+        try {
+            BeanUtils.copyProperties(contatoResponse, contato);
+        } catch (IllegalAccessException | InvocationTargetException e){
+            throw new NegocioException("Problema na conversão interna das mensagens",e);
+        }
         return contatoResponse;
 
     }
 
-    private List<ContatoDto> tratarContatoResponse(List<Contato> contatos) {
+    private List<ContatoDto> tratarContatoResponse(List<Contato> contatos){
         List<ContatoDto> contatosDto = new ArrayList<>();
+
 
         for (Contato contato: contatos) {
             ContatoDto contatoDto = new ContatoDto();
 
-            //Campos interessantes a serem expostos
-            contatoDto.setIdContato(contato.getId());
-            contatoDto.setCpf(contato.getCpf());
-            contatoDto.setNome(contato.getNome());
-            contatoDto.setTelefone(contato.getTelefone());
-            //contatoDto.setDataUltimaAtualizacao(contato.getDataUltimaAtualizacao());
+            try {
+                BeanUtils.copyProperties(contatoDto, contato);
+            } catch (IllegalAccessException | InvocationTargetException e){
+                throw new NegocioException("Problema na conversão interna das mensagens",e);
+            }
             contatosDto.add(contatoDto);
         }
+
         return contatosDto;
     }
 }
 /*
 Todo:
     - Solução Backend
-         - Tentar respeitar a segregação de dependências
-         - No pacote de negócios a consulta por id que deve chamar as outras camadas
-         - Implementar o BeanUtils *Não esquecer
-
-         - Implementar os testes com mock das camandas
-         - Criar um ambiente de teste caixa branca - Teste Unitário
          - Implementar solução JWT usando KeyCloack -- Após o frontEnd
 
     - Solução FrontEnd

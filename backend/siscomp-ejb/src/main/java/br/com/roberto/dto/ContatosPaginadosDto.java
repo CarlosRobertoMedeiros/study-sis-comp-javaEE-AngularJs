@@ -13,6 +13,7 @@ public class ContatosPaginadosDto {
 
     @JsonProperty("contatos")
     private List<ContatoDto> contatoDtos;
+
     @JsonProperty("totalizador")
     private Paginacao<Contato> totalizadorContatoDto;
 
@@ -27,8 +28,9 @@ public class ContatosPaginadosDto {
     }
 
     @JsonIgnore
-    public List<ContatoDto> getContatoDtos() {
+    public List<ContatoDto> getContatoDtos(){
         return contatoDtos;
     }
+
 
 }
