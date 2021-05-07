@@ -2,7 +2,9 @@ package br.com.roberto.v1.conversores;
 
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.v1.model.ContatoModel;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public abstract class ContatoDTOConversor {
 
     public static ContatoDto converterContatoDto(ContatoModel contato){
@@ -10,7 +12,8 @@ public abstract class ContatoDTOConversor {
                                 contato.getId(),
                                 contato.getCpf(),
                                 contato.getNome(),
-                                contato.getTelefone()
+                                contato.getTelefone(),
+                null
                              );
     }
 

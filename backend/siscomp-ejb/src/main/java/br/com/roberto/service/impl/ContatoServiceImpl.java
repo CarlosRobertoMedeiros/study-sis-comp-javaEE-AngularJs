@@ -33,8 +33,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         try{
             contatos = contatoRepository.findAll();
             contatosResponse = tratarContatoResponse(contatos);
-            ContatosDto contatosDto = new ContatosDto(contatosResponse);
-            return contatosDto.getContatoDtos();
+            ContatosDto contatosDto = new ContatosDto(contatosResponse,null);
+            return contatosDto.getContatos();
         }catch (Exception e){
             throw new NegocioException("Erro ao retornar os dados dos contatos ");
         }
