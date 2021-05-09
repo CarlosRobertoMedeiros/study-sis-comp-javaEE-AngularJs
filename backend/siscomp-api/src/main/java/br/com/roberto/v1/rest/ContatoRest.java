@@ -1,6 +1,7 @@
 package br.com.roberto.v1.rest;
 
 import br.com.roberto.dto.ContatoDto;
+import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.service.ContatoService;
 import br.com.roberto.v1.conversores.ContatoDTOConversor;
@@ -15,7 +16,6 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.List;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -32,12 +32,13 @@ public class ContatoRest implements ContatoRestOpenApi {
 
     /**
      * Consulta todos os contatos
+     * Futuramente esse método vai cair em desuso devido a uma grande quantidade de dados
      * @return Lista de Contatos
      */
     @GET
     @Deprecated
     public Response getContatos(){
-        List<ContatoDto> contatosResponse = null;
+        ContatosDto contatosResponse = null;
         contatosResponse =  contatoService.getContatos();
         ObjectMapper mapper = new ObjectMapper();
         String json = null;
@@ -91,6 +92,12 @@ public class ContatoRest implements ContatoRestOpenApi {
 
     }
 
+    /**
+     * Atualiza os dados de um contato existente
+     * @param id
+     * @param novoContato
+     * @return
+     */
     @PUT
     @Path("/{id}")
     public Response atualizaContato(@PathParam("id") Long id, ContatoModel novoContato){
@@ -100,7 +107,11 @@ public class ContatoRest implements ContatoRestOpenApi {
 
     }
 
-    @Override
+    /**
+     * Exclui um contato existente
+     * @param id
+     * @return
+     */
     @DELETE
     @Path("/{id}")
     public Response excluiContato(@PathParam("id") Long id) {
@@ -108,6 +119,11 @@ public class ContatoRest implements ContatoRestOpenApi {
         return Response.ok().build();
     }
 
+    /**
+     * Método responsáel por trazer o location na inserção do dados no Header do response
+     * @param contatoResponse
+     * @return
+     */
     private URI getUriParaInsercao(ContatoDto contatoResponse) {
         URI uri = URI.create("/v1/contatos/"+contatoResponse.getIdContato());
         return uri;

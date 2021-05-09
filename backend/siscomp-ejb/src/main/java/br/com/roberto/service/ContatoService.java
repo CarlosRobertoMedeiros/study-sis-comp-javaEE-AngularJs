@@ -1,14 +1,14 @@
 package br.com.roberto.service;
 
 import br.com.roberto.dto.ContatoDto;
+import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 
 import javax.ejb.Local;
-import java.util.List;
 
 @Local
 public interface ContatoService {
-    List<ContatoDto> getContatos();
+    ContatosDto getContatos();
     ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual);
     ContatoDto getContatosById(Long id);
     ContatoDto insereContato(ContatoDto contatoDto);

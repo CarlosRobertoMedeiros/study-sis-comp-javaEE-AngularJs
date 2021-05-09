@@ -27,7 +27,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
-    public List<ContatoDto> getContatos(){
+    public ContatosDto getContatos(){
         List<Contato> contatos = null;
         List<ContatoDto> contatosResponse = null;
         try{
@@ -35,7 +35,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             contatosResponse = tratarContatoResponse(contatos);
             ContatosDto contatosDto = new ContatosDto();
             contatosDto.setContatos(contatosResponse);
-            return contatosDto.getContatos();
+            return contatosDto;
         }catch (Exception e){
             throw new NegocioException("Erro ao retornar os dados dos contatos ");
         }

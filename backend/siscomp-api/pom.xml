@@ -81,7 +81,7 @@
          <dependency>
             <groupId>br.com.roberto</groupId>
             <artifactId>siscomp-ejb</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${siscomp-version}</version>
             <scope>compile</scope>
         </dependency>
 
