@@ -25,6 +25,11 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     @Inject
     private ContatoRepository contatoRepository;
 
+    /**
+     * Método do BeanEJB Responsável por listar todos os contatos
+     * Essa funcionalidade vai ser depreciada
+     * @return ContatosDto
+     */
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public ContatosDto getContatos(){
@@ -41,6 +46,11 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         }
     }
 
+    /**
+     * Método do BeanEJB Responsável por listar todos os contatos
+     * de maneira paginada
+     * @return ContatosPaginadosDto
+     */
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual){
@@ -58,6 +68,11 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         }
     }
 
+
+    /**
+     * Método do BeanEJB Responsável por listar os dados do contato por Id
+     * @return ContatosPaginadosDto
+     */
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     public ContatoDto getContatosById(Long id){
@@ -74,6 +89,10 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     }
 
+    /**
+     * Método do BeanEJB Responsável por Inserir os dados de um contato
+     * @return ContatoDto
+     */
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ContatoDto insereContato(ContatoDto contatoDto) {
@@ -90,6 +109,12 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     }
 
+    /**
+     * Método do BeanEJB Responsável por atualizar os dados de um contato
+     * @param id
+     * @param novoContatoDTO
+     * @return ContatoDto
+     */
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public ContatoDto atualizaContato(Long id, ContatoDto novoContatoDTO) {
@@ -110,6 +135,10 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         return converterContatoResponse(contato);
     }
 
+    /**
+     * Método do BeanEJB Responsável por excluir um contato
+     * @param id
+     */
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void excluiContatoById(Long id) {
@@ -132,6 +161,12 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         return contato;
     }
 
+    /**
+     * Todos os método para baixo devem ser removidos para uma classe de CONVERSAO
+     * @param contato
+     * @return
+     * TODO: Implementar a Classe de Conversão
+     */
     private ContatoDto converterContatoResponse(Contato contato) {
         ContatoDto contatoResponse = new ContatoDto();
 
@@ -144,9 +179,14 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     }
 
+    /**
+     * Todos os método para baixo devem ser removidos para uma classe de CONVERSAO
+     * @param contatos
+     * @return
+     * TODO: Implementar a Classe de Conversão
+     */
     private List<ContatoDto> tratarContatoResponse(List<Contato> contatos){
         List<ContatoDto> contatosDto = new ArrayList<>();
-
 
         for (Contato contato: contatos) {
             ContatoDto contatoDto = new ContatoDto();
@@ -165,6 +205,9 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 /*
 Todo:
     - Solução Backend
+         - Implementar a classe de conversão dos objetos DTO para Classe e vice-versa
+         - Implementar a Internacionalização
+         - Implementar os testes usando Mocks
          - Implementar solução JWT usando KeyCloack -- Após o frontEnd
 
     - Solução FrontEnd
