@@ -12,8 +12,7 @@ public abstract class ContatoDTOConversor {
                                 contato.getId(),
                                 contato.getCpf(),
                                 contato.getNome(),
-                                contato.getTelefone(),
-                null
+                                contato.getTelefone()
                              );
     }
 

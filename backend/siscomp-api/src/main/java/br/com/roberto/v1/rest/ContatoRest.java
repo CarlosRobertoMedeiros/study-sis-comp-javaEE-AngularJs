@@ -6,6 +6,8 @@ import br.com.roberto.service.ContatoService;
 import br.com.roberto.v1.conversores.ContatoDTOConversor;
 import br.com.roberto.v1.model.ContatoModel;
 import br.com.roberto.v1.openapi.ContatoRestOpenApi;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -37,7 +39,15 @@ public class ContatoRest implements ContatoRestOpenApi {
     public Response getContatos(){
         List<ContatoDto> contatosResponse = null;
         contatosResponse =  contatoService.getContatos();
-        return Response.ok(contatosResponse).build();
+        ObjectMapper mapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(contatosResponse);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        return Response.ok(json).build();
     }
 
     /**
