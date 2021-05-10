@@ -205,8 +205,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 /*
 Todo:
     - Solução Backend
-         - Implementar a classe de conversão dos objetos DTO para Classe e vice-versa
          - Implementar a Internacionalização
+         - Implementar a classe de conversão dos objetos DTO para Classe e vice-versa
          - Implementar os testes usando Mocks
          - Implementar solução JWT usando KeyCloack -- Após o frontEnd
 

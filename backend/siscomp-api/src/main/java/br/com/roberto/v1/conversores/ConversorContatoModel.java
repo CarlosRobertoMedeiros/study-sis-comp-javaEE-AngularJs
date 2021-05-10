@@ -5,7 +5,7 @@ import br.com.roberto.v1.model.ContatoModel;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public abstract class ContatoDTOConversor {
+public abstract class ConversorContatoModel {
 
     public static ContatoDto converterContatoDto(ContatoModel contato){
         return new ContatoDto(
