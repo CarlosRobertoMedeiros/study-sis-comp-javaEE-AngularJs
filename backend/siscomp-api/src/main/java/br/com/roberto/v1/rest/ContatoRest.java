@@ -4,7 +4,7 @@ import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.service.ContatoService;
-import br.com.roberto.v1.conversores.ConversorContatoModel;
+import br.com.roberto.v1.conversores.ContatoModelConversor;
 import br.com.roberto.v1.model.ContatoModel;
 import br.com.roberto.v1.openapi.ContatoRestOpenApi;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -87,7 +87,7 @@ public class ContatoRest implements ContatoRestOpenApi {
     @POST
     public Response insereContato(ContatoModel contato){
         ContatoDto contatoResponse = null;
-        contatoResponse = contatoService.insereContato(ConversorContatoModel.converterContatoDto(contato));
+        contatoResponse = contatoService.insereContato(ContatoModelConversor.converterContatoDto(contato));
         return Response.created(getUriParaInsercao(contatoResponse)).entity(contatoResponse).build();
 
     }
@@ -102,7 +102,7 @@ public class ContatoRest implements ContatoRestOpenApi {
     @Path("/{id}")
     public Response atualizaContato(@PathParam("id") Long id, ContatoModel novoContato){
         ContatoDto contatoResponse = null;
-        contatoResponse = contatoService.atualizaContato(id, ConversorContatoModel.converterContatoDto(novoContato));
+        contatoResponse = contatoService.atualizaContato(id, ContatoModelConversor.converterContatoDto(novoContato));
         return Response.ok(contatoResponse).build();
 
     }
