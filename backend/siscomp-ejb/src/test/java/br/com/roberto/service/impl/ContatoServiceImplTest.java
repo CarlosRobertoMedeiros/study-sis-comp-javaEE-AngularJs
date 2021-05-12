@@ -1,6 +1,5 @@
 package br.com.roberto.service.impl;
 
-import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.entity.Contato;
 import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
@@ -24,7 +23,7 @@ public class ContatoServiceImplTest{
     private List<Contato> contatosMocks;
 
     @Mock
-    private List<ContatoDto> contatosDtoMocks;
+    private List<br.com.roberto.dto.ContatoDto> contatosDtoMocks;
 
     @Mock
     private ContatoRepository contatoRepository;

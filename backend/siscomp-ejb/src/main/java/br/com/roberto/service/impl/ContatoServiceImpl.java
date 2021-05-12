@@ -1,5 +1,7 @@
 package br.com.roberto.service.impl;
 
+import br.com.roberto.conversores.negocio.ContatoDtoFromContato;
+import br.com.roberto.conversores.negocio.ContatoDtoToContato;
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
@@ -8,12 +10,10 @@ import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.Paginacao;
 import br.com.roberto.service.ContatoService;
-import org.apache.commons.beanutils.BeanUtils;
 
 import javax.ejb.*;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,7 +37,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         List<ContatoDto> contatosResponse = null;
         try{
             contatos = contatoRepository.findAll();
-            contatosResponse = tratarContatoResponse(contatos);
+            contatosResponse = ContatoDtoToContato.toCollectionDtoObject(contatos);
             ContatosDto contatosDto = new ContatosDto();
             contatosDto.setContatos(contatosResponse);
             return contatosDto;
@@ -60,14 +60,13 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         Paginacao<Contato> dadosPaginados = null;
         try {
             contatos = contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
-            contatosResponse = tratarContatoResponse(contatos);
+            contatosResponse = ContatoDtoToContato.toCollectionDtoObject(contatos);
             dadosPaginados = contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual);
             return  new ContatosPaginadosDto(contatosResponse, dadosPaginados);
         }catch (Exception e){
             throw new NegocioException("Erro ao retornar os dados paginados de contatos");
         }
     }
-
 
     /**
      * Método do BeanEJB Responsável por listar os dados do contato por Id
@@ -84,9 +83,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         if (contato.getIdContato()==null){
             throw new NegocioException("O Contato é Obrigatório");
         }
-        contatoResponse = converterContatoResponse(contato);
+        contatoResponse = ContatoDtoToContato.toDtoObject(contato);
         return contatoResponse;
-
     }
 
     /**
@@ -99,14 +97,13 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         Contato contato = null;
         ContatoDto contatoResponse = null;
 
-        contato = converterContatoDTO(contatoDto);
+        contato = ContatoDtoFromContato.toDto(contatoDto);
         if (contato.getCpf()==null){
             throw new NegocioException("O Cpf é Obrigatório");
         }
         contatoRepository.persist(contato);
-        contatoResponse = converterContatoResponse(contato);
+        contatoResponse = ContatoDtoToContato.toDtoObject(contato);
         return contatoResponse;
-
     }
 
     /**
@@ -117,7 +114,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
      */
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public ContatoDto atualizaContato(Long id, ContatoDto novoContatoDTO) {
+    public ContatoDto atualizaContato(Long id,ContatoDto novoContatoDTO) {
         Contato contato = null;
         Contato contatoAtualizado = null;
 
@@ -125,14 +122,14 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         if (contato == null) {
             throw new NegocioException("O Contato informado é inexistente");
         }
-        contatoAtualizado = converterContatoDTO(novoContatoDTO);
+        contatoAtualizado = ContatoDtoFromContato.toDto(novoContatoDTO);
 
         contato.setCpf(contatoAtualizado.getCpf());
         contato.setNome(contatoAtualizado.getNome());
         contato.setTelefone(contatoAtualizado.getTelefone());
 
         contatoRepository.merge(contato);
-        return converterContatoResponse(contato);
+        return ContatoDtoToContato.toDtoObject(contato);
     }
 
     /**
@@ -150,63 +147,12 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         contatoRepository.remove(contato);
     }
 
-    private Contato converterContatoDTO(ContatoDto contatoDto) {
-        Contato contato = new Contato();
 
-        try {
-            BeanUtils.copyProperties(contato, contatoDto);
-        } catch (IllegalAccessException | InvocationTargetException e){
-            throw new NegocioException("Problema na conversão interna das mensagens",e);
-        }
-        return contato;
-    }
-
-    /**
-     * Todos os método para baixo devem ser removidos para uma classe de CONVERSAO
-     * @param contato
-     * @return
-     * TODO: Implementar a Classe de Conversão
-     */
-    private ContatoDto converterContatoResponse(Contato contato) {
-        ContatoDto contatoResponse = new ContatoDto();
-
-        try {
-            BeanUtils.copyProperties(contatoResponse, contato);
-        } catch (IllegalAccessException | InvocationTargetException e){
-            throw new NegocioException("Problema na conversão interna das mensagens",e);
-        }
-        return contatoResponse;
-
-    }
-
-    /**
-     * Todos os método para baixo devem ser removidos para uma classe de CONVERSAO
-     * @param contatos
-     * @return
-     * TODO: Implementar a Classe de Conversão
-     */
-    private List<ContatoDto> tratarContatoResponse(List<Contato> contatos){
-        List<ContatoDto> contatosDto = new ArrayList<>();
-
-        for (Contato contato: contatos) {
-            ContatoDto contatoDto = new ContatoDto();
-
-            try {
-                BeanUtils.copyProperties(contatoDto, contato);
-            } catch (IllegalAccessException | InvocationTargetException e){
-                throw new NegocioException("Problema na conversão interna das mensagens",e);
-            }
-            contatosDto.add(contatoDto);
-        }
-
-        return contatosDto;
-    }
 }
 /*
 Todo:
     - Solução Backend
-         - Implementar a Internacionalização
-         - Implementar a classe de conversão dos objetos DTO para Classe e vice-versa
+         - Implementar a Internacionalização -- olhar com calma -- Centralização de Mensagens
          - Implementar os testes usando Mocks
          - Implementar solução JWT usando KeyCloack -- Após o frontEnd
 

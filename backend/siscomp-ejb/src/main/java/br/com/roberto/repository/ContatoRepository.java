@@ -51,7 +51,7 @@ public class ContatoRepository extends AbstractRepository<Contato, Long>{
         int valorMinumoParaPaginacao = (valorMaximoParaPaginacao - totalRegistrosPorPagina)+1;
 
 
-        Query query = em.createNativeQuery(String.valueOf(jpql),Contato.class);
+        Query query = em.createNativeQuery(String.valueOf(jpql), Contato.class);
         query
             .setParameter("valorMaximoParaPaginacao", valorMaximoParaPaginacao)
             .setParameter("valorMinimoParaPaginacao", valorMinumoParaPaginacao);

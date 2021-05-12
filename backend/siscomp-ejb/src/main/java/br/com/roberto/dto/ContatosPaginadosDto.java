@@ -12,12 +12,12 @@ import java.util.List;
 public class ContatosPaginadosDto {
 
     @JsonProperty("contatos")
-    private List<ContatoDto> contatoDtos;
+    private List<br.com.roberto.dto.ContatoDto> contatoDtos;
 
     @JsonProperty("totalizador")
     private Paginacao<Contato> totalizadorContatoDto;
 
-    public ContatosPaginadosDto(List<ContatoDto> contatoDtos, Paginacao<Contato> totalizadorContatoDto) {
+    public ContatosPaginadosDto(List<br.com.roberto.dto.ContatoDto> contatoDtos, Paginacao<Contato> totalizadorContatoDto) {
         this.contatoDtos = contatoDtos;
         this.totalizadorContatoDto = totalizadorContatoDto;
     }
@@ -28,7 +28,7 @@ public class ContatosPaginadosDto {
     }
 
     @JsonIgnore
-    public List<ContatoDto> getContatoDtos(){
+    public List<br.com.roberto.dto.ContatoDto> getContatoDtos(){
         return contatoDtos;
     }
 
