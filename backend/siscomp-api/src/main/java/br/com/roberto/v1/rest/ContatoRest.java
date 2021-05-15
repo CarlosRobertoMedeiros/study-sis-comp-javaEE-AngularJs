@@ -4,11 +4,9 @@ import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.service.ContatoService;
-import br.com.roberto.v1.conversores.api.ContatoInputToDto;
+import br.com.roberto.v1.conversores.api.ContatoInputParaContatoDto;
 import br.com.roberto.v1.model.input.ContatoInput;
 import br.com.roberto.v1.openapi.ContatoRestOpenApi;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
@@ -16,16 +14,12 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.URI;
-import java.util.logging.Logger;
 
 @ApplicationScoped
-
 @Path("v1/contatos")
 @Produces(MediaType.APPLICATION_JSON+";charset=utf-8")
 @Consumes(MediaType.APPLICATION_JSON+";charset=utf-8")
 public class ContatoRest implements ContatoRestOpenApi {
-
-    private Logger logger = Logger.getLogger(ContatoRest.class.getName());
 
     @EJB
     private ContatoService contatoService;
@@ -38,17 +32,8 @@ public class ContatoRest implements ContatoRestOpenApi {
     @GET
     @Deprecated
     public Response getContatos(){
-        ContatosDto contatosResponse = null;
-        contatosResponse =  contatoService.getContatos();
-        ObjectMapper mapper = new ObjectMapper();
-        String json = null;
-        try {
-            json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(contatosResponse);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        return Response.ok(json).build();
+        ContatosDto  contatosResponse =  contatoService.getContatos();
+        return Response.ok(contatosResponse).build();
     }
 
     /**
@@ -58,8 +43,7 @@ public class ContatoRest implements ContatoRestOpenApi {
     @GET
     @Path("/{id}")
     public Response getContatosById(@PathParam("id") Long id){
-        ContatoDto contatoResponse = null;
-        contatoResponse =  contatoService.getContatosById(id);
+        ContatoDto  contatoResponse =  contatoService.getContatosById(id);
         return Response.ok(contatoResponse).build();
    }
 
@@ -74,8 +58,7 @@ public class ContatoRest implements ContatoRestOpenApi {
     public Response getContatosPaginados(@QueryParam("totalRegistrosPorPagina") int totalRegistrosPorPagina,
                                                  @QueryParam("paginaAtual") int paginaAtual){
 
-        ContatosPaginadosDto contatoResponse = null;
-        contatoResponse =  contatoService.getContatosPaginados(totalRegistrosPorPagina,paginaAtual);
+        ContatosPaginadosDto contatoResponse =  contatoService.getContatosPaginados(totalRegistrosPorPagina,paginaAtual);
         return Response.ok(contatoResponse).build();
     }
 
@@ -86,9 +69,8 @@ public class ContatoRest implements ContatoRestOpenApi {
      */
     @POST
     public Response insereContato(ContatoInput contatoInput){
-        ContatoDto contatoResponse = null;
-        ContatoDto contatoDtoRequest = ContatoInputToDto.toDtoObject(contatoInput);
-        contatoResponse = contatoService.insereContato(contatoDtoRequest);
+        ContatoDto contatoDtoRequest = ContatoInputParaContatoDto.toDtoObject(contatoInput);
+        ContatoDto contatoResponse = contatoService.insereContato(contatoDtoRequest);
         return Response.created(getUriParaInsercao(contatoResponse)).entity(contatoResponse).build();
     }
 
@@ -101,11 +83,9 @@ public class ContatoRest implements ContatoRestOpenApi {
     @PUT
     @Path("/{id}")
     public Response atualizaContato(@PathParam("id") Long id, ContatoInput novoContato){
-        ContatoDto contatoResponse = null;
-        ContatoDto contatoDtoRequest = ContatoInputToDto.toDtoObject(novoContato);
-        contatoResponse = contatoService.atualizaContato(id, contatoDtoRequest);
+        ContatoDto contatoDtoRequest = ContatoInputParaContatoDto.toDtoObject(novoContato);
+        ContatoDto contatoResponse = contatoService.atualizaContato(id, contatoDtoRequest);
         return Response.ok(contatoResponse).build();
-
     }
 
     /**

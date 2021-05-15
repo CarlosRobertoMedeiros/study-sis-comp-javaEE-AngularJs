@@ -1,7 +1,7 @@
 package br.com.roberto.service.impl;
 
-import br.com.roberto.conversores.negocio.ContatoDtoFromContato;
-import br.com.roberto.conversores.negocio.ContatoDtoToContato;
+import br.com.roberto.conversores.negocio.ContatoDtoParaContato;
+import br.com.roberto.conversores.negocio.ContatoParaContatoDto;
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
@@ -37,7 +37,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         List<ContatoDto> contatosResponse = null;
         try{
             contatos = contatoRepository.findAll();
-            contatosResponse = ContatoDtoToContato.toCollectionDtoObject(contatos);
+            contatosResponse = ContatoParaContatoDto.toCollectionDtoObject(contatos);
             ContatosDto contatosDto = new ContatosDto();
             contatosDto.setContatos(contatosResponse);
             return contatosDto;
@@ -60,7 +60,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         Paginacao<Contato> dadosPaginados = null;
         try {
             contatos = contatoRepository.listaTodosContatosPaginados(totalRegistrosPorPagina, paginaAtual);
-            contatosResponse = ContatoDtoToContato.toCollectionDtoObject(contatos);
+            contatosResponse = ContatoParaContatoDto.toCollectionDtoObject(contatos);
             dadosPaginados = contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual);
             return  new ContatosPaginadosDto(contatosResponse, dadosPaginados);
         }catch (Exception e){
@@ -83,7 +83,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         if (contato.getIdContato()==null){
             throw new NegocioException("O Contato é Obrigatório");
         }
-        contatoResponse = ContatoDtoToContato.toDtoObject(contato);
+        contatoResponse = ContatoParaContatoDto.toDtoObject(contato);
         return contatoResponse;
     }
 
@@ -97,12 +97,12 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         Contato contato = null;
         ContatoDto contatoResponse = null;
 
-        contato = ContatoDtoFromContato.toDto(contatoDto);
+        contato = ContatoDtoParaContato.toDto(contatoDto);
         if (contato.getCpf()==null){
             throw new NegocioException("O Cpf é Obrigatório");
         }
         contatoRepository.persist(contato);
-        contatoResponse = ContatoDtoToContato.toDtoObject(contato);
+        contatoResponse = ContatoParaContatoDto.toDtoObject(contato);
         return contatoResponse;
     }
 
@@ -122,14 +122,14 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         if (contato == null) {
             throw new NegocioException("O Contato informado é inexistente");
         }
-        contatoAtualizado = ContatoDtoFromContato.toDto(novoContatoDTO);
+        contatoAtualizado = ContatoDtoParaContato.toDto(novoContatoDTO);
 
         contato.setCpf(contatoAtualizado.getCpf());
         contato.setNome(contatoAtualizado.getNome());
         contato.setTelefone(contatoAtualizado.getTelefone());
 
         contatoRepository.merge(contato);
-        return ContatoDtoToContato.toDtoObject(contato);
+        return ContatoParaContatoDto.toDtoObject(contato);
     }
 
     /**
@@ -152,8 +152,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 /*
 Todo:
     - Solução Backend
-         - Implementar a Internacionalização -- olhar com calma -- Centralização de Mensagens
-         - Implementar os testes usando Mocks
+         - Implementar a Internacionalização -- olhar com calma -- Centralização de Mensagens com ResourceBundle
+         - Implementar os testes usando Mocks -- após o front end
          - Implementar solução JWT usando KeyCloack -- Após o frontEnd
 
     - Solução FrontEnd

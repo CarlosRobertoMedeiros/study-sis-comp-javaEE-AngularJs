@@ -34,6 +34,7 @@
         <!-- Dependências Inseridas -->
         <jackson-annotations-version>2.9.9</jackson-annotations-version>
         <commons-beanutils-version>1.9.4</commons-beanutils-version>
+        <modelmapper-version>2.4.2</modelmapper-version>
 
         <!-- Dependências de Documentação -->
         <swagger-version>1.5.19</swagger-version>
