@@ -4,13 +4,11 @@ import java.util.ResourceBundle;
 
 public class ConfiguracaoMensagens {
 
-    //Pegar as seguinte referências: https://www.youtube.com/watch?v=1wEp9yHHtwg
-    //TODO: Implementar Corretamente no futuro
-    private static ResourceBundle rb = ResourceBundle.getBundle("src/main/resource/messages.properties");
+    //TODO:VERIFICAR A NECESSIDADA DE CENTRALIZAÇÃO NO FUTURO
+    private static ResourceBundle rb = ResourceBundle.getBundle("messages-negocio_PT-BR");
 
     public static void main(String[] args) {
-        String browser = rb.getString("browser");
-        System.out.println(browser);
+        System.out.println(rb.getString("username"));
     }
 
 }

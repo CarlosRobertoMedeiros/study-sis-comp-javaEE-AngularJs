@@ -16,11 +16,14 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 @Local
 @Stateless
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class ContatoServiceImpl implements ContatoService, Serializable {
+
+    private static ResourceBundle rb = ResourceBundle.getBundle("messages-negocio_PT-BR");
 
     @Inject
     private ContatoRepository contatoRepository;
@@ -42,7 +45,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             contatosDto.setContatos(contatosResponse);
             return contatosDto;
         }catch (Exception e){
-            throw new NegocioException("Erro ao retornar os dados dos contatos ");
+            throw new NegocioException(rb.getString("CONTATOS_NAO_ENCONTRADOS"));
         }
     }
 
@@ -64,7 +67,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
             dadosPaginados = contatoRepository.findAllWithPagination(totalRegistrosPorPagina, paginaAtual);
             return  new ContatosPaginadosDto(contatosResponse, dadosPaginados);
         }catch (Exception e){
-            throw new NegocioException("Erro ao retornar os dados paginados de contatos");
+            throw new NegocioException(rb.getString("CONTATOS_PAGINADOS_NAO_ENCONTRADOS"));
         }
     }
 
@@ -80,8 +83,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
         contato = contatoRepository.findById(id);
 
-        if (contato.getIdContato()==null){
-            throw new NegocioException("O Contato é Obrigatório");
+        if (contato==null){
+            throw new NegocioException(rb.getString("CONTATO_OBRIGATORIO"));
         }
         contatoResponse = ContatoParaContatoDto.toDtoObject(contato);
         return contatoResponse;
@@ -98,8 +101,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         ContatoDto contatoResponse = null;
 
         contato = ContatoDtoParaContato.toDto(contatoDto);
-        if (contato.getCpf()==null){
-            throw new NegocioException("O Cpf é Obrigatório");
+        if (contato==null){
+            throw new NegocioException(rb.getString("CPF_OBRIGATORIO"));
         }
         contatoRepository.persist(contato);
         contatoResponse = ContatoParaContatoDto.toDtoObject(contato);
@@ -120,7 +123,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
         contato = contatoRepository.findById(id);
         if (contato == null) {
-            throw new NegocioException("O Contato informado é inexistente");
+            throw new NegocioException(rb.getString("CONTATO_INFORMADO_INEXISTENTE"));
         }
         contatoAtualizado = ContatoDtoParaContato.toDto(novoContatoDTO);
 
@@ -142,17 +145,14 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
         Contato contato = contatoRepository.findById(id);
         if (contato==null){
-            throw new NegocioException(" O Contato informado é inexistente");
+            throw new NegocioException(rb.getString("CONTATO_INFORMADO_INEXISTENTE"));
         }
         contatoRepository.remove(contato);
     }
-
-
 }
 /*
 Todo:
     - Solução Backend
-         - Implementar a Internacionalização -- olhar com calma -- Centralização de Mensagens com ResourceBundle
          - Implementar os testes usando Mocks -- após o front end
          - Implementar solução JWT usando KeyCloack -- Após o frontEnd
 
