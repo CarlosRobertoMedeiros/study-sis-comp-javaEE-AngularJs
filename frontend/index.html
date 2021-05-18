@@ -8,15 +8,47 @@
 		<link rel="icon" href="assets/app/images/favicon.png">
 		<base href="/">
 		
+		<!-- style bootstrap core -->
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" >
+
+		
 		<!-- scripts angular core -->
 		<script src="bower_components/angular/angular.min.js"></script>
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
-		<title>SisComp - Sistema Completo</title>
+		<!-- app -->
 		
+		<!-- style app-->
+		<link rel="stylesheet" type="text/css" href="assets/app/css/dashboard.css">
+		<link rel="stylesheet" type="text/css" href="assets/app/css/sticky-footer.css">
+		<link rel="stylesheet" type="text/css" href="assets/app/css/limitacao.css">
+
+		<!-- script app -->
+		<script type="text/javascript" src="assets/app/js/index.js"></script>
+		
+		<!-- routes -->		
+
+		<!-- controllers -->
+		<script type="text/javascript" src="assets/app/js/controller/LeftSideBarCntrl.js"></script>
+		<script type="text/javascript" src="assets/app/js/controller/ConfiguracaoCntrl.js"></script><!--Da Erro se inverter a ordem com LeftSideBarCntrl, Por que?-->
+		
+				
+		<!-- Titulo Carregando Informações da Configuracao-->
+		<title ng-controller="ConfiguracaoCntrl as vm">{{ vm.tituloProjeto }}</title>
+
 	</head>
 	<body>
-		{{2 + 2}}
-		Apenas uma mensagem
+		<!-- header -->
+		<header ng-include="'assets/app/template/header.html'"></header>
+
+		<!-- leftSideBar -->
+		<div ng-include="'assets/app/template/leftsidebar.html'"></div>
+
+		<div class="cl_limitacao">
+			<div ui-view></div>
+		</div>
+
+		<footer ng-include="'assets/app/template/footer.html'">
 
 	</body>
 
