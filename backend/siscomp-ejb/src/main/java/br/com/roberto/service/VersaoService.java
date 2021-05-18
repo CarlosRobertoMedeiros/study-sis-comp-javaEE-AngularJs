@@ -1,0 +1,9 @@
+package br.com.roberto.service;
+
+import javax.ejb.Local;
+
+@Local
+public interface VersaoService {
+
+    String getVersaoAtual();
+}

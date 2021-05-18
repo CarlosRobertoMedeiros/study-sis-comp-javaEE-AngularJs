@@ -1,0 +1,14 @@
+{
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "SisComp - Sistema Completo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Carlos Roberto",
+  "license": "ISC",
+  "dependencies": {
+    "bower": "^1.8.12"
+  }
+}
