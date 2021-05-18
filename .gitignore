@@ -31,10 +31,9 @@ build/
 .vscode/
 /.metadata/
 
-/___frontend
-
 ### Front End ###
-/bower_components
+/frontend/bower_components
+/frontend/node_modules
 
 ## Docker ###
 /docker/oracle
