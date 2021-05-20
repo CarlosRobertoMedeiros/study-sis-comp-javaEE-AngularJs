@@ -27,6 +27,7 @@
 		<script type="text/javascript" src="assets/app/js/index.js"></script>
 		
 		<!-- routes -->		
+		<script type="text/javascript" src="assets/app/js/config/routes.js"></script>
 
 		<!-- controllers -->
 		<script type="text/javascript" src="assets/app/js/controller/LeftSideBarCntrl.js"></script>
@@ -37,7 +38,7 @@
 		<title ng-controller="ConfiguracaoCntrl as vm">{{ vm.tituloProjeto }}</title>
 
 	</head>
-	<body>
+	<body ng-app="sisComp" class="container">
 		<!-- header -->
 		<header ng-include="'assets/app/template/header.html'"></header>
 
@@ -45,7 +46,9 @@
 		<div ng-include="'assets/app/template/leftsidebar.html'"></div>
 
 		<div class="cl_limitacao">
-			<div ui-view></div>
+			<div>
+				<ui-view></ui-view>
+			</div>
 		</div>
 
 		<footer ng-include="'assets/app/template/footer.html'">
