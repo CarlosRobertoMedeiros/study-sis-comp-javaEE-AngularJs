@@ -10,11 +10,15 @@
 		
 		<!-- style bootstrap core -->
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" >
+		<link rel="stylesheet" href="assets/deps/css/deps.min.css">
 
 		
 		<!-- scripts angular core -->
 		<script src="bower_components/angular/angular.min.js"></script>
 		<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		<script src="assets/deps/js/deps.min.js"></script> 
+		<script src="assets/app/js/jquery.js"></script> 
+
 
 		<!-- app -->
 		
@@ -46,9 +50,7 @@
 		<div ng-include="'assets/app/template/leftsidebar.html'"></div>
 
 		<div class="cl_limitacao">
-			<div>
-				<ui-view></ui-view>
-			</div>
+			<ui-view></ui-view>
 		</div>
 
 		<footer ng-include="'assets/app/template/footer.html'">

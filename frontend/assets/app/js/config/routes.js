@@ -1,12 +1,9 @@
 (function (){
 	angular
-		.module("sisComp")
-		.config(function($stateProvider, $urlRouterProvider, $locationProvider){
-			
-			$stateProvider.state("index",{
-				url: "index",
-				template: "<h1>Testei o Template 1</h1>"	
-			}).state("dashboards", {
+		.module('sisComp').config(['$stateProvider','urlRouterProvider',
+			function($stateProvider, $urlRouterProvider){
+			console.log("Entrei aqui");
+			$stateProvider.state("dashboards",{
 				url: "/dashboards",
 				templateUrl: "private/dashboard/listar.dashboard.html"
 			});
@@ -34,6 +31,8 @@
 
 				$urlRouterProvider.otherwise("private/dashboard/listar.dashboard.html");
 				//$locationProvider.html5Mode(true);
+		}]).run(function($rootScope){
+
 		});
   
 })()
