@@ -1,39 +1,24 @@
 (function (){
+	'use strict';
 	angular
-		.module('sisComp').config(['$stateProvider','urlRouterProvider',
-			function($stateProvider, $urlRouterProvider){
-			console.log("Entrei aqui");
-			$stateProvider.state("dashboards",{
-				url: "/dashboards",
-				templateUrl: "private/dashboard/listar.dashboard.html"
+		.module('sisComp').config(['$routeProvider', '$locationProvider',
+		function($routeProvider, $locationProvider) {
+		  $routeProvider
+			.when('/dashboards', {
+			  templateUrl: 'private/dashboard/listar.dashboard.html'
+			})
+			/*
+			.when('/Book/:bookId/ch/:chapterId', {
+			  templateUrl: 'chapter.html',
+			  controller: 'ChapterCtrl',
+			  controllerAs: 'chapter'
 			});
-				
-				/*
-				.state
-					({
-						name: 'dashboard',
-						url: '/dashboard',
-						templateUrl: 'private/dashboard/listar.dashboard.html'
-					})
-				.state
-					({
-						name: 'marcasprodutos',
-						url: '/marcasprodutos',
-						templateUrl: 'private/marcas-e-produtos/listar.marcas-produtos.html'
-					})
-				.state
-					({
-						name: 'contatos',
-						url: '/contatos',
-						templateUrl: 'private/contatos/listar.contatos.html'
-					})
-					*/
+			*/
+	  
+		  $locationProvider.html5Mode(true);
 
-				$urlRouterProvider.otherwise("private/dashboard/listar.dashboard.html");
+
+						//$urlRouterProvider.otherwise("private/dashboard/listar.dashboard.html");
 				//$locationProvider.html5Mode(true);
-		}]).run(function($rootScope){
-
-		});
-  
+		}])					
 })()
-

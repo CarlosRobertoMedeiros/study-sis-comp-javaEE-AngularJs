@@ -16,7 +16,6 @@
   ],
   "devDependencies": {
     "angular": "angularjs#1.6.4",
-    "angular-ui-router": "1.0.3",
     "bootstrap": "3.4.1",
     "jquery": "2.2.4"
   }
