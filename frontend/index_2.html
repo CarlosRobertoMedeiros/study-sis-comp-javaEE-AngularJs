@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="sisComp">
+	<head>
+		<!--Meta -->
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="assets/app/images/favicon.png">
+		
+		
+		<!-- style bootstrap core -->
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" >
+
+		<link rel="stylesheet" href="assets/deps/css/deps.min.css">
+
+
+		
+		<!-- scripts angular core -->
+		<script src="bower_components/angular/angular.min.js"></script>
+		<!--
+		<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+		-->
+		<script src="bower_components/angular-route/angular-route.min.js"></script>
+		
+
+
+		<script src="assets/deps/js/deps.min.js"></script> 
+		<script src="assets/app/js/jquery.js"></script> 
+
+
+
+		<!-- app -->
+		
+		<!-- style app-->
+		<link rel="stylesheet" type="text/css" href="assets/app/css/dashboard.css">
+		<link rel="stylesheet" type="text/css" href="assets/app/css/sticky-footer.css">
+		<link rel="stylesheet" type="text/css" href="assets/app/css/limitacao.css">
+
+		<!-- script app -->
+		<script type="text/javascript" src="assets/app/js/index.js"></script>
+		
+		<!-- routes -->		
+		<script type="text/javascript" src="assets/app/js/config/routes.js"></script>
+
+		<!-- controllers -->
+		<script type="text/javascript" src="assets/app/js/controller/LeftSideBarCntrl.js"></script>
+		<script type="text/javascript" src="assets/app/js/controller/ConfiguracaoCntrl.js"></script><!--Da Erro se inverter a ordem com LeftSideBarCntrl, Por que?-->
+		
+				
+		<!-- Titulo Carregando Informações da Configuracao-->
+		<title ng-controller="ConfiguracaoCntrl as vm">{{ vm.tituloProjeto }}</title>
+
+	</head>
+	<body class="container" ng-app="sisComp">
+		
+			<!-- header -->
+			<header ng-include="'assets/app/template/header.html'"></header>
+
+			<!-- leftSideBar -->
+			<!--
+			<div ng-include="'assets/app/template/leftsidebar.html'"></div>
+			-->
+
+			<div ng-view></div>
+
+			<pre>$location.path() = {{main.$location.path()}}</pre>
+			<pre>$route.current.templateUrl = {{main.$route.current.templateUrl}}</pre>
+			<pre>$route.current.params = {{main.$route.current.params}}</pre>
+			<pre>$routeParams = {{main.$routeParams}}</pre>
+
+			<!--
+			<div class="cl_limitacao">
+			</div>
+
+			<footer ng-include="'assets/app/template/footer.html'">
+				-->
+		
+	</body>
+
+</html>

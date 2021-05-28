@@ -1,72 +1,46 @@
 <!DOCTYPE html>
 <html lang="pt-br" ng-app="sisComp">
-	<head>
-		<!--Meta -->
-		<meta charset="UTF-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" href="assets/app/images/favicon.png">
-		<base href="/">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Siscomp - Sistema Completo</title>
+        <link rel="icon" href="app/images/favicon.png">
+
+        <!-- style -->
+        <!-- vendor style -->
+		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+
+        <!-- style app-->
+		<link rel="stylesheet" type="text/css" href="app/css/dashboard.css">
 		
-		<!-- style bootstrap core -->
-		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css" >
-
-		<link rel="stylesheet" href="assets/deps/css/deps.min.css">
-
-
-		
-		<!-- scripts angular core -->
-		<script src="bower_components/angular/angular.min.js"></script>
 		<!--
-		<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
-		-->
-		<script src="assets/vendor/angular-route.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="assets/app/css/limitacao.css">
+        -->
+
+    </head>
+    
+    <body>
+        <header ng-include="'app/views/template/header.html'"></header>
+        <!--
+        <div ng-include="'app/views/template/leftsidebar.html'"></div>
+        -->
+        <div class="container" ui-view></div>
+
+        <footer ng-include="'app/views/template/footer.html'"></footer>
+    </body>
+
+    <!-- scripts -->
+    <!-- vendor scripts -->
+    <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
+    <script src="app/vendor/lib/popper.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
 
-		<script src="assets/deps/js/deps.min.js"></script> 
-		<script src="assets/app/js/jquery.js"></script> 
-
-
-
-		<!-- app -->
-		
-		<!-- style app-->
-		<link rel="stylesheet" type="text/css" href="assets/app/css/dashboard.css">
-		<link rel="stylesheet" type="text/css" href="assets/app/css/sticky-footer.css">
-		<link rel="stylesheet" type="text/css" href="assets/app/css/limitacao.css">
-
-		<!-- script app -->
-		<script type="text/javascript" src="assets/app/js/index.js"></script>
-		
-		<!-- routes -->		
-		<script type="text/javascript" src="assets/app/js/config/routes.js"></script>
-
-		<!-- controllers -->
-		<script type="text/javascript" src="assets/app/js/controller/LeftSideBarCntrl.js"></script>
-		<script type="text/javascript" src="assets/app/js/controller/ConfiguracaoCntrl.js"></script><!--Da Erro se inverter a ordem com LeftSideBarCntrl, Por que?-->
-		
-				
-		<!-- Titulo Carregando Informações da Configuracao-->
-		<title ng-controller="ConfiguracaoCntrl as vm">{{ vm.tituloProjeto }}</title>
-
-	</head>
-	<body ng-app="sisComp" class="container">
-		<!-- header -->
-		<header ng-include="'assets/app/template/header.html'"></header>
-
-		<!-- leftSideBar -->
-		<!--
-		<div ng-include="'assets/app/template/leftsidebar.html'"></div>
-		-->
-
-		<div ng-view></div>
-		<!--
-		<div class="cl_limitacao">
-		</div>
-
-		<footer ng-include="'assets/app/template/footer.html'">
-			-->
-
-	</body>
+    <!-- app scripts -->
+    <script src="app/app.js"></script>
+    <script src="app/config/routes.js"></script>
 
 </html>

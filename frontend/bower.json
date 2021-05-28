@@ -15,8 +15,9 @@
     "tests"
   ],
   "devDependencies": {
+    "jquery": "3.2.1",
+    "bootstrap": "4.0.0",
     "angular": "angularjs#1.6.4",
-    "bootstrap": "3.4.1",
-    "jquery": "2.2.4"
+    "angular-ui-router": "1.0.3"
   }
 }
