@@ -10,30 +10,25 @@
         <!-- style -->
         <!-- vendor style -->
 		<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
         <!-- style app-->
-		<link rel="stylesheet" type="text/css" href="app/css/dashboard.css">
+        <link rel="stylesheet" type="text/css" href="app/css/offcanvas.css">
+        <link rel="stylesheet" type="text/css" href="app/css/dashboard.css">
 		
-		<!--
-        <link rel="stylesheet" type="text/css" href="assets/app/css/limitacao.css">
-        -->
-
     </head>
     
     <body>
         <header ng-include="'app/views/template/header.html'"></header>
-        <!--
-        <div ng-include="'app/views/template/leftsidebar.html'"></div>
-        -->
-        <div class="container" ui-view></div>
-
+        <div ng-include="'app/views/template/offcanvas.html'"></div>
+        <main class="container" ui-view></main>
         <footer ng-include="'app/views/template/footer.html'"></footer>
     </body>
 
     <!-- scripts -->
     <!-- vendor scripts -->
-    <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
     <script src="app/vendor/lib/popper.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.slim.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
 	<script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -42,5 +37,7 @@
     <!-- app scripts -->
     <script src="app/app.js"></script>
     <script src="app/config/routes.js"></script>
+    <script src="app/js/offcanvas.js"></script>
+
 
 </html>
