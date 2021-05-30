@@ -64,9 +64,8 @@
     <!-- Tabela de Contatos -->
     <div class="my-3 p-3 bg-white rounded box-shadow">
         
-        
         <h6 class="border-bottom border-gray pb-2 mb-0">Contatos</h6>
-        <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+        <div ng-controller="ContatosController as vm" class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
             
             <p align="right" style="padding-top: 5px;">
                 
@@ -78,6 +77,8 @@
                 <i class="fa fa-file-pdf fa-lg"></i>
                 -->
             </p>
+
+            {{ vm.listarTodos() }}
             
             <table class="table table-sm table-striped">
                 <thead>
