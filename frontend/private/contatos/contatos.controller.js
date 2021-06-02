@@ -3,22 +3,25 @@
     'use strict';
     angular
         .module('sisComp')
-        .controller('ContatosController',['ContatosService',ContatosController]);
+        .controller('ContatosController',['ContatosService',ContatosController])
 
     function ContatosController(contatosService){
         const vm = this;
+        vm.dados = [];
 
         vm.listarTodos = function(){
 
             contatosService.listarTodos()
                 .then(function(response){
-                            response.data;
-                            console.log(response.data)
+                            vm.dados = [];
+                            vm.dados =  response.data;
                         },function(error){
                             console.log('error '+error)
                         }
                     )
         };
+
+        vm.listarTodos(); 
 
     }
 

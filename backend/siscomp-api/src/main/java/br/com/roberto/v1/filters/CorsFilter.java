@@ -1,14 +1,10 @@
 package br.com.roberto.v1.filters;
 
-import javax.annotation.Priority;
 import javax.servlet.*;
 import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.Priorities;
-import javax.ws.rs.ext.Provider;
 import java.io.IOException;
 
-@Provider
-@Priority(Priorities.AUTHORIZATION)
+
 public class CorsFilter implements Filter {
 
     @Override
@@ -44,4 +40,5 @@ public class CorsFilter implements Filter {
     public void destroy() {
 
     }
+
 }

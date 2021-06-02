@@ -1,4 +1,5 @@
-<div class="main">
+<div class="container">
+    
     <!-- Cabeçalho -->
     <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
         <img style="background-color: #6f42c1;" class="mr-3" src="../../app/images/c.svg"  alt="" width="48" height="48">
@@ -78,7 +79,6 @@
                 -->
             </p>
 
-            {{ vm.listarTodos() }}
             
             <table class="table table-sm table-striped">
                 <thead>
@@ -92,11 +92,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>AAAAA AAAAAAAA AAAAAAAAA AAAAAAAA</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
+                    <tr ng-repeat="dado in vm.dados.contatos">
+                        <td>{{dado.idContato}}</td>
+                        <td>{{dado.nome}}</td>
+                        <td>{{dado.telefone}}</td>
+                        <td>{{dado.cpf}}</td>
                         <td>Claro</td>
                         <td class="text-center"> 
                             <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
@@ -104,114 +104,6 @@
                             <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>BBBBB BBBBBBBB BBBBBBBBBB BBBBBBBBBB</td>
-                        <td>055 55 88888-4444</td>
-                        <td>00/00/0000 </td>
-                        <td>Claro</td>
-                        <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
-                        </td>
-                    <tr>    
                 </tbody>
                 <tfoot>
                     <tr>
