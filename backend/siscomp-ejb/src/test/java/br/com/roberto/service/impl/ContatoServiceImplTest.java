@@ -31,9 +31,9 @@ public class ContatoServiceImplTest{
 
     private void carregaContatosMocks(){
         this.contatosMocks = new ArrayList<>();
-        this.contatosMocks.add(new Contato(Long.valueOf(1),"06689401073","Antonio Nunes","2198745898",LocalDate.now()));
-        this.contatosMocks.add(new Contato(Long.valueOf(2),"49900370066","Lucia Da Silva","6158741236",LocalDate.now()));
-        this.contatosMocks.add(new Contato(Long.valueOf(3),"31619396033","Thiago Pereira","3194753678",LocalDate.now()));
+        this.contatosMocks.add(new Contato(Long.valueOf(1),"Antonio Nunes","2198745898",LocalDate.now(),null));
+        this.contatosMocks.add(new Contato(Long.valueOf(2),"Lucia Da Silva","6158741236",LocalDate.now(),null));
+        this.contatosMocks.add(new Contato(Long.valueOf(3),"Thiago Pereira","3194753678",LocalDate.now(),null));
     }
 
     @Before

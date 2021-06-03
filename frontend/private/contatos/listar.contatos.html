@@ -97,8 +97,8 @@
                         <td>{{dado.idContato}}</td>
                         <td>{{dado.nome}}</td>
                         <td >{{dado.telefone}}</td>
-                        <td>{{dado.cpf}}</td> <!-- Data -->
-                        <td>Claro</td> <!-- Operadora -->
+                        <td>{{dado.dataUltimaAtualizacao.dayOfMonth+"/"+dado.dataUltimaAtualizacao.monthValue+"/"+dado.dataUltimaAtualizacao.year}}</td> <!-- Data -->
+                        <td>{{dado.operadora.codigoOperadora +"-"+ dado.operadora.nomeOperadora}}</td> <!-- Operadora -->
                         <td class="text-center"> 
                             <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
                             <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
@@ -141,4 +141,28 @@
     
 
 </div>
+<!--
+    TODO:
+      - Implementar um método em JS para retornar formatado o campo telefone.
+      - Implementar um método em JS para retornar formatado o campo data.
+      - Implementar no filtro Duas datas sendo Data Inicial e Data Final.
+      - Implementar o Visualizar
+      - Implementar o Editar
+      - Implementar o Inserir
+      - Implementar a Paginação de acordo com o método paginado do backend
+      - Exportar em Excel todos os Contatos
+      - Exportar em Excel os Contatos disponíveis na paginação
+      - Exportar em CSV todos os Contatos
+      - Exportar em CSV os Contatos disponíveis na paginação
+      - Exportar em Relatórios todos os Contatos
+      - Exportar em Relatórios os Contatos disponíveis na paginação
 
+      - Implementar Segurança no Backend com KeyCloak usando Client_Credentials
+        -  Usar banco de dados Postgres para o Keycloak dentro de um container docker
+      - Implementar Segurança no front end com authToken
+
+      - Disponibilizar ambiente em Containers docker.
+
+      PARTIR PARA PRÓXIMA ARQUITETURA
+
+-->

@@ -23,16 +23,16 @@ public class Contato implements Serializable {
     @Column(name = "NU_CONTATO")
     private Long idContato;
 
-    @Column(name = "CO_CPF_CONTATO", length = 11, nullable = false)
-    private String cpf;
-
     @Column(name = "NO_NOME_CONTATO", length = 100, nullable = false)
     private String nome;
 
-    @Column(name = "CO_TELEFONE_CONTATO", length = 100, nullable = false)
+    @Column(name = "NM_TELEFONE_CONTATO", length = 16, nullable = false)
     private String telefone;
 
     @Column(name = "DT_ULTIMA_ATUALIZACAO_CONTATO", length = 100, nullable = false)
     private LocalDate dataUltimaAtualizacao = LocalDate.now();
 
+    @OneToOne()
+    @JoinColumn(name = "CO_OPERADORA", referencedColumnName = "CO_OPERADORA")
+    private Operadora operadora;
 }

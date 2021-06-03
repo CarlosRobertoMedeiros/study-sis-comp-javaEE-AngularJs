@@ -127,7 +127,6 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
         }
         contatoAtualizado = ContatoDtoParaContato.toDto(novoContatoDTO);
 
-        contato.setCpf(contatoAtualizado.getCpf());
         contato.setNome(contatoAtualizado.getNome());
         contato.setTelefone(contatoAtualizado.getTelefone());
 
