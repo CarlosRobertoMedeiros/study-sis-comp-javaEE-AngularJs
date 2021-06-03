@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 
 @Getter
@@ -31,7 +32,7 @@ public class Contato implements Serializable {
     @Column(name = "CO_TELEFONE_CONTATO", length = 100, nullable = false)
     private String telefone;
 
-//    @Column(name = "DT_ULTIMA_ATUALIZACAO_CONTATO", length = 100, nullable = false)
-//    private LocalDateTime dataUltimaAtualizacao = LocalDateTime.now();
+    @Column(name = "DT_ULTIMA_ATUALIZACAO_CONTATO", length = 100, nullable = false)
+    private LocalDate dataUltimaAtualizacao = LocalDate.now();
 
 }

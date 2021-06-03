@@ -1,13 +1,15 @@
 (function(){
+   
     'use strict';
     angular
         .module('sisComp')
         .controller('ContatosController',['ContatosService',ContatosController])
 
+    let vm = undefined;
+    
+
     function ContatosController(contatosService){
-        const vm = this;
-        vm.dados = [];
-        
+        vm = this;
         vm.listarTodos = function(){
 
             contatosService.listarTodos()
@@ -19,12 +21,18 @@
                         }
                         
                     )
+                    return vm.dados;
         };
 
-        vm.listarTodos(); 
-       
+        //vm.listarTodos(); 
+        
+        
+        
     }
-   
+    ContatosController.prototype.listaTodos = function(){
+        return vm.listarTodos();
+    };
+    
 })();
 
 //https://code.angularjs.org/1.6.4/docs/api/ng/service/$http#

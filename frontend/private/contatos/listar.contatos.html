@@ -92,12 +92,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <!-- {{vm.dados | json}} -->
                     <tr ng-repeat="dado in vm.dados.contatos">
                         <td>{{dado.idContato}}</td>
                         <td>{{dado.nome}}</td>
-                        <td>{{dado.telefone}}</td>
-                        <td>{{dado.cpf}}</td>
-                        <td>Claro</td>
+                        <td >{{dado.telefone}}</td>
+                        <td>{{dado.cpf}}</td> <!-- Data -->
+                        <td>Claro</td> <!-- Operadora -->
                         <td class="text-center"> 
                             <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
                             <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>

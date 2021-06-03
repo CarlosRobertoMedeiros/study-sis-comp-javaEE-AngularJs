@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,9 +31,9 @@ public class ContatoServiceImplTest{
 
     private void carregaContatosMocks(){
         this.contatosMocks = new ArrayList<>();
-        this.contatosMocks.add(new Contato(Long.valueOf(1),"06689401073","Antonio Nunes","2198745898"));
-        this.contatosMocks.add(new Contato(Long.valueOf(2),"49900370066","Lucia Da Silva","6158741236"));
-        this.contatosMocks.add(new Contato(Long.valueOf(3),"31619396033","Thiago Pereira","3194753678"));
+        this.contatosMocks.add(new Contato(Long.valueOf(1),"06689401073","Antonio Nunes","2198745898",LocalDate.now()));
+        this.contatosMocks.add(new Contato(Long.valueOf(2),"49900370066","Lucia Da Silva","6158741236",LocalDate.now()));
+        this.contatosMocks.add(new Contato(Long.valueOf(3),"31619396033","Thiago Pereira","3194753678",LocalDate.now()));
     }
 
     @Before
@@ -56,6 +57,12 @@ public class ContatoServiceImplTest{
         List<Contato> contatoInterno = contatoRepository.findAll();
         Mockito.when(contatoInterno==null)
                 .thenThrow(new NegocioException("Não foi Possível retornar contatos"));
+    }
+
+    @Test
+    public void testLocalDate(){
+        LocalDate data = LocalDate.now();
+        System.out.println(data);
     }
 
 
