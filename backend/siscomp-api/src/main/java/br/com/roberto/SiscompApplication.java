@@ -20,5 +20,6 @@ public class SiscompApplication extends Application {
 
         conf.setScan(true);
         conf.setPrettyPrint(true);
+
     }
 }
