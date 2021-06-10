@@ -4,7 +4,6 @@ import br.com.roberto.service.VersaoService;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
-import javax.servlet.ServletContext;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

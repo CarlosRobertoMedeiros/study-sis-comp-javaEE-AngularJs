@@ -1,0 +1,63 @@
+<!-- Modal -->
+<div class="modal fade" id="modalAlterarContato" tabindex="-1" role="dialog" aria-labelledby="modalAlterarContatoTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#6f42c1;">
+                <h5 ng-show="vm.icIncluir" class="modal-title" id="modalAlterarContatoTitle" style="color:#FFF;">Incluir Contato</h5>
+                <h5 ng-show="!vm.icIncluir" class="modal-title" id="modalAlterarContatoTitle" style="color:#FFF;">Alterar Contato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+                {{vm.contato | json}}
+                
+
+                <!-- Formulário -->
+                    <form> 
+                        <div class="form-group col-md-4">
+                            <!-- ID -->
+                            <label for="contato-id" class="col-form-label">Id</label>
+                            <input type="text" class="form-control" id="contato-id" ng-model="vm.contato.idContato" readonly>
+                        </div>
+
+                        <div class="form-group row col-md-12">
+                            <div class="form-group col-md-8">
+                                <label for="contato-nome" class="col-form-label">Nome</label>
+                                <input type="text" class="form-control" id="contato-nome" ng-model="vm.contato.nome">
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="contato-data-ultima-atualizacao" class="col-form-label">Data Atualização</label>
+                                <input type="text"  datetime="dd-MM-yyyy HH:mm:ss" class="form-control" id="contato-data-ultima-atualizacao" ng-model="vm.contato.dataUltimaAtualizacao">
+                            </div>
+                        </div>
+
+                        <div class="form-group row col-md-12">
+                            <div class="form-group col-md-6">
+                                <label for="contato-telefone" class="col-form-label">Telefone</label>
+                                <input type="text" class="form-control" id="contato-telefone" ng-model="vm.contato.telefone">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="contato-operadoras" class="col-form-label">Operadora</label>
+                            
+                                <select id="contato-operadoras" class="form-control">
+                                    <option selected>Escolha uma Operadora...</option>
+                                    <option>...</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        
+                    </form>   
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button ng-show="vm.icIncluir" type="button" class="btn btn-primary" ng-click="vm.incluirContato()"><i class="fa fa-plus fa-xs"></i>Incluir</button>
+                <button ng-show="!vm.icIncluir" type="button" class="btn btn-primary" ng-click="vm.alterarContato()"><i class="fa fa-edit fa-xs"></i>Alterar</button>
+            </div>
+        </div>
+    </div>
+</div>

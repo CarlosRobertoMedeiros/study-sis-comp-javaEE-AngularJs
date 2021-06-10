@@ -13,6 +13,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
@@ -31,9 +32,9 @@ public class ContatoServiceImplTest{
 
     private void carregaContatosMocks(){
         this.contatosMocks = new ArrayList<>();
-        this.contatosMocks.add(new Contato(Long.valueOf(1),"Antonio Nunes","2198745898",LocalDate.now(),null));
-        this.contatosMocks.add(new Contato(Long.valueOf(2),"Lucia Da Silva","6158741236",LocalDate.now(),null));
-        this.contatosMocks.add(new Contato(Long.valueOf(3),"Thiago Pereira","3194753678",LocalDate.now(),null));
+        this.contatosMocks.add(new Contato(Long.valueOf(1),"Antonio Nunes","2198745898", GregorianCalendar.getInstance(),null));
+        this.contatosMocks.add(new Contato(Long.valueOf(2),"Lucia Da Silva","6158741236",GregorianCalendar.getInstance(),null));
+        this.contatosMocks.add(new Contato(Long.valueOf(3),"Thiago Pereira","3194753678",GregorianCalendar.getInstance(),null));
     }
 
     @Before

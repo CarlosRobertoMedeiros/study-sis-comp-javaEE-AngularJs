@@ -1,0 +1,20 @@
+<!-- Modal -->
+<div class="modal fade" id="modalExcluirContato" tabindex="-1" role="dialog" aria-labelledby="modalExcluirContatoTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#6f42c1;">
+                <h5 class="modal-title" id="modalExcluirContatoTitle" style="color:#FFF;">Excluir Contato</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>O contato <strong>{{vm.contato.idContato + ' - '+ vm.contato.nome}}</strong> será excluído. Confirma?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" ng-click="vm.excluirContato()"><i class="fa fa-trash"></i>Excluir</button>
+            </div>
+        </div>
+    </div>
+</div>

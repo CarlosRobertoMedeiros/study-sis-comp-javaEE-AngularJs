@@ -29,7 +29,6 @@
 
         <!-- Dependências Providas pela Especificação -->
         <javaee-api-version>7.0</javaee-api-version>
-        <cdi-api-version>2.0</cdi-api-version>
 
         <!-- Dependências Inseridas -->
         <jackson-annotations-version>2.9.9</jackson-annotations-version>

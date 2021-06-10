@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.util.Calendar;
 
 
 @Getter
@@ -35,7 +35,7 @@ public class ContatoDto {
     private String telefone;
 
     @JsonProperty("dataUltimaAtualizacao")
-    private LocalDate dataUltimaAtualizacao;
+    private Calendar dataUltimaAtualizacao;
 
     @JsonProperty("operadora")
     private Operadora operadora;

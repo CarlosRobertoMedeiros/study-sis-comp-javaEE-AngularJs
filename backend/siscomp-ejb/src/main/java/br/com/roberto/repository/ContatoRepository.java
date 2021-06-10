@@ -21,31 +21,30 @@ public class ContatoRepository extends AbstractRepository<Contato, Long>{
 
         jpql.append(" SELECT 													 ");
         jpql.append(" 	X.NU_CONTATO,											 ");
-        jpql.append(" 	X.CO_CPF_CONTATO,										 ");
-//      jpql.append(" 	X.DT_ULTIMA_ATUALIZACAO_CONTATO,                         ");
+        jpql.append(" 	X.DT_ULTIMA_ATUALIZACAO_CONTATO,                         ");
         jpql.append(" 	X.NO_NOME_CONTATO,                                       ");
-        jpql.append(" 	X.CO_TELEFONE_CONTATO                                    ");
+        jpql.append(" 	X.NM_TELEFONE_CONTATO,                                   ");
+        jpql.append(" 	X.CO_OPERADORA                                           ");
         jpql.append(" FROM                                                       ");
         jpql.append(" 	( SELECT                                                 ");
         jpql.append(" 		A.NU_CONTATO,                                        ");
-        jpql.append(" 		A.CO_CPF_CONTATO,                                    ");
-//      jpql.append(" 		A.DT_ULTIMA_ATUALIZACAO_CONTATO,                     ");
+        jpql.append(" 		A.DT_ULTIMA_ATUALIZACAO_CONTATO,                     ");
         jpql.append(" 		A.NO_NOME_CONTATO,                                   ");
-        jpql.append(" 		A.CO_TELEFONE_CONTATO,                               ");
+        jpql.append(" 		A.NM_TELEFONE_CONTATO,                               ");
+        jpql.append(" 		A.CO_OPERADORA,                                      ");
         jpql.append(" 		ROWNUM RNUM                                          ");
         jpql.append(" 	FROM                                                     ");
         jpql.append(" 	  	( SELECT                                             ");
         jpql.append(" 		  		NU_CONTATO,                                  ");
-        jpql.append(" 		  		CO_CPF_CONTATO,                              ");
-//      jpql.append(" 		  		DT_ULTIMA_ATUALIZACAO_CONTATO,               ");
+        jpql.append(" 		  		DT_ULTIMA_ATUALIZACAO_CONTATO,               ");
         jpql.append(" 		  		NO_NOME_CONTATO,                             ");
-        jpql.append(" 		  		CO_TELEFONE_CONTATO                          ");
+        jpql.append(" 		  		NM_TELEFONE_CONTATO,                         ");
+        jpql.append(" 		  		CO_OPERADORA                                 ");
         jpql.append(" 	  		FROM                                             ");
         jpql.append(" 	  			SISCOMP.TB_CONTATOS ORDER BY NU_CONTATO ) A  ");
         jpql.append(" 	  WHERE ROWNUM <= :valorMaximoParaPaginacao              ");
         jpql.append(" 	)X                                                       ");
         jpql.append(" WHERE RNUM  >= :valorMinimoParaPaginacao                   ");
-
 
         int valorMaximoParaPaginacao = (paginaAtual * totalRegistrosPorPagina);
         int valorMinumoParaPaginacao = (valorMaximoParaPaginacao - totalRegistrosPorPagina)+1;

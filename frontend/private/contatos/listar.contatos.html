@@ -1,5 +1,9 @@
 <div class="container">
-    
+
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page"><a ui-sref="contatos">Contatos</a></li>
+    </ol>
+
     <!-- Cabeçalho -->
     <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-purple rounded box-shadow">
         <img style="background-color: #6f42c1;" class="mr-3" src="../../app/images/c.svg"  alt="" width="48" height="48">
@@ -8,7 +12,7 @@
             <small>Informações dos Contatos</small>
         </div>
     </div>
-
+    
     <!-- Filtro -->
     <div class="my-3 p-3 bg-white rounded box-shadow">
         <h6 class="border-bottom border-gray pb-2 mb-0">Filtro</h6>
@@ -83,26 +87,25 @@
             <table class="table table-sm table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Telefone</th>
-                        <th scope="col">Data</th>
-                        <th scope="col">Operadora</th>
+                        <th scope="col" class="text-center">Id</th>
+                        <th scope="col" class="text-center">Nome</th>
+                        <th scope="col" class="text-center">Telefone</th>
+                        <th scope="col" class="text-center">Data</th>
+                        <th scope="col" class="text-center">Operadora</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- {{vm.dados | json}} -->
+                    <!-- {{vm.dados | json}}  -->
                     <tr ng-repeat="dado in vm.dados.contatos">
-                        <td>{{dado.idContato}}</td>
-                        <td>{{dado.nome}}</td>
-                        <td >{{dado.telefone}}</td>
-                        <td>{{dado.dataUltimaAtualizacao.dayOfMonth+"/"+dado.dataUltimaAtualizacao.monthValue+"/"+dado.dataUltimaAtualizacao.year}}</td> <!-- Data -->
-                        <td>{{dado.operadora.codigoOperadora +"-"+ dado.operadora.nomeOperadora}}</td> <!-- Operadora -->
+                        <td class="text-center">{{dado.idContato}}</td>
+                        <td class="text-center">{{dado.nome}}</td>
+                        <td class="text-center">{{dado.telefone}}</td>
+                        <td class="text-center">{{dado.dataUltimaAtualizacao | date: "dd/MM/yyyy HH:mm:ss" }}</td> <!-- Data -->
+                        <td class="text-center">{{dado.operadora.codigoOperadora +" - "+ dado.operadora.nomeOperadora}}</td> <!-- Operadora -->
                         <td class="text-center"> 
-                            <button type="button" class="btn btn-primary btn-sm"><i class="fa fa-eye fa-xs"></i></button>
-                            <button type="button" class="btn btn-success btn-sm"><i class="fa fa-edit fa-xs"></i></button>
-                            <button type="button" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
+                            <button ng-click="vm.prepararAlteracaoContato(dado)" class="btn btn-primary btn-sm"><i class="fa fa-edit fa-xs"></i></button>
+                            <button ng-click="vm.prepararExclusaoContato(dado)" class="btn btn-danger  btn-sm"><i class="fa fa-trash fa-xs"></i></button>
                         </td>
                     </tr>
                 </tbody>
@@ -114,7 +117,7 @@
                         <td></td>
                         <td></td>
                         <td>
-                            <button type="button"  class="btn btn-primary btn-sm float-right"><i class="fa fa-plus fa-xs"></i></button>
+                            <button ng-click="vm.prepararInclusaoContato()"  class="btn btn-success btn-sm float-right"><i class="fa fa-plus fa-xs"></i></button>
                         </td>
                     </tr>
                   </tfoot>
@@ -136,18 +139,31 @@
                 </ul>
             </nav>
             
+            <div ng-include="'private/contatos/modal.excluir.contatos.html'"></div>
+            <div ng-include="'private/contatos/modal.alterar.contatos.html'"></div>
+            <div ng-include="'private/contatos/modal.contatos.mensagem.html'"></div>
+
         </div>
     </div>
     
+    
+    <!--
+    <div ng-include="'private/contatos/modal.manter.parametrizacao.alcada.html'"></div>
+    <div ng-include="'private/parametrizacaoAlcada/modal.parametrizacao.alcada.mensagem.html'"></div>
+    -->
+
 
 </div>
+
+    
+
+
 <!--
     TODO:
-      - Implementar breadcrumb
-      - Implementar um método em JS para retornar formatado o campo telefone.
-      - Implementar um método em JS para retornar formatado o campo data.
+      - Implementar breadcrumb -- Ok
+      - Implementar um método em JS para retornar formatado o campo data. -- Ok
       - Implementar no filtro Duas datas sendo Data Inicial e Data Final.
-      - Implementar o Visualizar
+      - Implementar um método em JS para retornar formatado o campo telefone.
       - Implementar o Editar
       - Implementar o Inserir
       - Implementar a Paginação de acordo com o método paginado do backend
