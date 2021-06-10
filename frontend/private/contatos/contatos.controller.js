@@ -28,7 +28,16 @@
         vm.prepararInclusaoContato = function(){
             vm.icIncluir = true;
             vm.contato = undefined;
-            $('#modalAlterarContato').modal('show');
+            
+            contatosService.listarTodasOperadoras()
+                .then(function(response){
+                        vm.dados = [];
+                        vm.dados =  response.data;
+                        $('#modalAlterarContato').modal('show');
+                    },function(error){
+                        console.log('error '+error)
+                    }
+                )
         };
 
         //TODO: Implementar a Inclusão

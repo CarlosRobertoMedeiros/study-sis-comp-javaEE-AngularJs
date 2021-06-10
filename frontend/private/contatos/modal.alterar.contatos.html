@@ -11,8 +11,8 @@
             </div>
             <div class="modal-body">
                 
-                {{vm.contato | json}}
-                
+                {{vm.dados.operadoras |json}}
+                {{vm.contato |json}}
 
                 <!-- Formulário -->
                     <form> 
@@ -28,8 +28,8 @@
                                 <input type="text" class="form-control" id="contato-nome" ng-model="vm.contato.nome">
                             </div>
                             <div class="form-group col-md-4">
-                                <label for="contato-data-ultima-atualizacao" class="col-form-label">Data Atualização</label>
-                                <input type="text"  datetime="dd-MM-yyyy HH:mm:ss" class="form-control" id="contato-data-ultima-atualizacao" ng-model="vm.contato.dataUltimaAtualizacao">
+                                <label for="contato-data-nascimento" class="col-form-label">Data Nascimento</label>
+                                <input type="date"  date="dd-MM-yyyy" class="form-control" id="contato-data-nascimento" ng-model="vm.contato.dataNascimento">
                             </div>
                         </div>
 
@@ -41,9 +41,10 @@
                             <div class="form-group col-md-6">
                                 <label for="contato-operadoras" class="col-form-label">Operadora</label>
                             
-                                <select id="contato-operadoras" class="form-control">
-                                    <option selected>Escolha uma Operadora...</option>
-                                    <option>...</option>
+                                <select id="contato-operadoras" class="form-control"
+                                        ng-model="vm.contato.operadora" 
+                                        ng-options="operadora.codigoOperadora as operadora.nomeOperadora for operadora in vm.dados.operadoras">
+                                        <option value="">Escolha uma operadora</option>
                                 </select>
 
                             </div>

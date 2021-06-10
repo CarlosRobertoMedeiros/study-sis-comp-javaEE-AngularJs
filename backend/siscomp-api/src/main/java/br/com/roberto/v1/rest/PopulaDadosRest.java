@@ -1,6 +1,7 @@
 package br.com.roberto.v1.rest;
 
 import br.com.roberto.service.PopulaDadosService;
+import br.com.roberto.v1.openapi.PopulaDadosRestOpenApi;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -12,12 +13,14 @@ import javax.ws.rs.core.MediaType;
 @RequestScoped
 @Path("v1/popula-dados")
 @Produces(MediaType.APPLICATION_JSON+";charset=utf-8")
-public class PopulaDadosRest {
+public class PopulaDadosRest implements PopulaDadosRestOpenApi {
 
     @EJB
     private PopulaDadosService populaDadosService;
 
+
     @GET
+    @Override
     public void popularDados(){
         populaDadosService.popularDados();
     }

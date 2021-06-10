@@ -3,9 +3,9 @@
     'use strict';
     angular
         .module('sisComp')
-        .service('ContatosService',['$http',ContatosService])
+        .service('ContatosService',['$http','OperadorasService',ContatosService])
 
-    function ContatosService($http){
+    function ContatosService($http,operadorasService){
         const vm = this;
         vm.classBody;  
 
@@ -16,6 +16,10 @@
         vm.listarTodos = function(){
             let url = baseUrl+baseVersao+"contatos";
             return $http.get(url);
+        }
+
+        vm.listarTodasOperadoras = function(){
+            return operadorasService.listarTodas();
         }
 
         vm.excluirContato = function(contato){

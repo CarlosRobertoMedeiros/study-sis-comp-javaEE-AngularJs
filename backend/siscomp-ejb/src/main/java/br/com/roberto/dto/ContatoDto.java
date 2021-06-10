@@ -34,8 +34,8 @@ public class ContatoDto {
     @JsonProperty("telefone")
     private String telefone;
 
-    @JsonProperty("dataUltimaAtualizacao")
-    private Calendar dataUltimaAtualizacao;
+    @JsonProperty("dataNascimento")
+    private String dataNascimento;
 
     @JsonProperty("operadora")
     private Operadora operadora;

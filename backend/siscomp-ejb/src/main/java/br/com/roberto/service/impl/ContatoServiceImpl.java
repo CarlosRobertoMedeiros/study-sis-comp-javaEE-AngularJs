@@ -7,6 +7,7 @@ import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.entity.Contato;
 import br.com.roberto.exceptions.NegocioException;
+import br.com.roberto.helper.DataHelper;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.Paginacao;
 import br.com.roberto.service.ContatoService;
@@ -14,9 +15,9 @@ import br.com.roberto.service.ContatoService;
 import javax.ejb.*;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @Local
 @Stateless
@@ -99,6 +100,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
     public ContatoDto insereContato(ContatoDto contatoDto) {
         Contato contato = null;
         ContatoDto contatoResponse = null;
+
 
         contato = ContatoDtoParaContato.toDto(contatoDto);
         if (contato==null){

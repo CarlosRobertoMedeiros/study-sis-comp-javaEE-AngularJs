@@ -1,5 +1,4 @@
 (function(){
-   
     'use strict';
     angular
         .module('sisComp')
@@ -23,6 +22,10 @@
                     )
                     return vm.dados;
         };
+
+        vm.init = function(){
+            listaTodos();
+        }
 
         //vm.listarTodos(); 
         

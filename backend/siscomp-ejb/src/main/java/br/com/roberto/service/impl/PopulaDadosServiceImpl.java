@@ -6,17 +6,14 @@ import br.com.roberto.exceptions.NegocioException;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.OperadoraRepository;
 import br.com.roberto.service.PopulaDadosService;
-import oracle.jdbc.pool.OracleDataSource;
 
 import javax.ejb.*;
 import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
 
@@ -36,8 +33,8 @@ public class PopulaDadosServiceImpl  implements PopulaDadosService, Serializable
 
     @Override
     public void popularDados() {
-        removeOperadorasPreExistentes();
         removeContatosPreExistentes();
+        removeOperadorasPreExistentes();
         insereOperadoras();
         insereContatos();
     }
@@ -45,24 +42,29 @@ public class PopulaDadosServiceImpl  implements PopulaDadosService, Serializable
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
     private void insereContatos() {
 
+        LocalDate dataNascimento = LocalDate.of(1981,12,12);
         Operadora operadoraOi =  operadoraRepository.findById(14L);
         Contato contato = new Contato("Carlos Roberto Medeiros","(61)99999-9999",
-                GregorianCalendar.getInstance(), operadoraOi);
+                dataNascimento, operadoraOi);
 
+        LocalDate dataNascimento1 = LocalDate.of(1983,07,03);
         Operadora operadoraVivo =  operadoraRepository.findById(15L);
         Contato contato1 = new Contato("Luciene Alves Medeiros","(61)88888-8888",
-                GregorianCalendar.getInstance(), operadoraVivo);
+                dataNascimento1, operadoraVivo);
 
+        LocalDate dataNascimento2 = LocalDate.of(1978,9,15);
         Contato contato2 = new Contato("Antonio Nunes Silva","(61)7777-7777",
-                GregorianCalendar.getInstance(), operadoraVivo);
+                dataNascimento2, operadoraVivo);
 
+        LocalDate dataNascimento3 = LocalDate.of(1967,11,07);
         Operadora operadoraTim =  operadoraRepository.findById(41L);
         Contato contato3 = new Contato("Lucia Maria de Lima","(61)6666-6666",
-                GregorianCalendar.getInstance(), operadoraTim);
+                dataNascimento3, operadoraTim);
 
+        LocalDate dataNascimento4 = LocalDate.of(2000,03,04);
         Operadora operadoraEmbratel =  operadoraRepository.findById(28L);
         Contato contato4 = new Contato("Francisco de Assis Lima","(61)5555-5555",
-                GregorianCalendar.getInstance(), operadoraEmbratel);
+                dataNascimento4, operadoraEmbratel);
 
         try{
             contatoRepository.persist(contato);

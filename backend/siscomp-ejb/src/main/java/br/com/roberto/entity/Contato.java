@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -17,10 +18,10 @@ import java.util.GregorianCalendar;
 @Table(name = "TB_CONTATOS", schema = "SISCOMP")
 public class Contato implements Serializable {
 
-    public Contato(String nome,String telefone,Calendar dataUltimaAtualizacao, Operadora operadora){
+    public Contato(String nome,String telefone,LocalDate dataNascimento, Operadora operadora){
         this.nome = nome;
         this.telefone = telefone;
-        this.dataUltimaAtualizacao = dataUltimaAtualizacao;
+        this.dataNascimento = dataNascimento;
         this.operadora = operadora;
     }
 
@@ -37,8 +38,8 @@ public class Contato implements Serializable {
     @Column(name = "NM_TELEFONE_CONTATO", length = 16, nullable = false)
     private String telefone;
 
-    @Column(name = "DT_ULTIMA_ATUALIZACAO_CONTATO", length = 100, nullable = false)
-    private Calendar dataUltimaAtualizacao = GregorianCalendar.getInstance();
+    @Column(name = "DT_NASCIMENTO", length = 10, nullable = false)
+    private LocalDate dataNascimento = LocalDate.now();
 
     @OneToOne()
     @JoinColumn(name = "CO_OPERADORA", referencedColumnName = "CO_OPERADORA")

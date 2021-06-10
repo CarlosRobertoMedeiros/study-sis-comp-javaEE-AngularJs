@@ -2,6 +2,7 @@ package br.com.roberto.conversores.negocio;
 
 import br.com.roberto.dto.ContatoDto;
 import br.com.roberto.entity.Contato;
+import br.com.roberto.helper.DataHelper;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -10,8 +11,15 @@ import java.util.List;
 public abstract class ContatoParaContatoDto {
 
     public static ContatoDto toDtoObject(Contato contato){
-        ModelMapper modelMapper = new ModelMapper();
-        ContatoDto contatoDto = modelMapper.map(contato, ContatoDto.class);
+        //ModelMapper modelMapper = new ModelMapper();
+        //ContatoDto contatoDto = modelMapper.map(contato, ContatoDto.class);
+        //TODO: Corrigir a conversão do Objeto
+        ContatoDto contatoDto = new ContatoDto();
+        contatoDto.setNome(contato.getNome());
+        contatoDto.setTelefone(contato.getTelefone());
+        contatoDto.setDataNascimento(DataHelper.dateToString(contato.getDataNascimento()));
+        contatoDto.setOperadora(contato.getOperadora());
+
         return contatoDto;
     }
 

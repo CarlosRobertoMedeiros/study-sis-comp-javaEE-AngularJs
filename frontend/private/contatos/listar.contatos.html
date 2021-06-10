@@ -90,7 +90,7 @@
                         <th scope="col" class="text-center">Id</th>
                         <th scope="col" class="text-center">Nome</th>
                         <th scope="col" class="text-center">Telefone</th>
-                        <th scope="col" class="text-center">Data</th>
+                        <th scope="col" class="text-center">Dt Nasc</th>
                         <th scope="col" class="text-center">Operadora</th>
                         <th scope="col" class="text-center">Ações</th>
                     </tr>
@@ -101,7 +101,7 @@
                         <td class="text-center">{{dado.idContato}}</td>
                         <td class="text-center">{{dado.nome}}</td>
                         <td class="text-center">{{dado.telefone}}</td>
-                        <td class="text-center">{{dado.dataUltimaAtualizacao | date: "dd/MM/yyyy HH:mm:ss" }}</td> <!-- Data -->
+                        <td class="text-center">{{dado.dataNascimento | date: "dd/MM/yyyy" }}</td> <!-- Data -->
                         <td class="text-center">{{dado.operadora.codigoOperadora +" - "+ dado.operadora.nomeOperadora}}</td> <!-- Operadora -->
                         <td class="text-center"> 
                             <button ng-click="vm.prepararAlteracaoContato(dado)" class="btn btn-primary btn-sm"><i class="fa fa-edit fa-xs"></i></button>
@@ -162,7 +162,10 @@
     TODO:
       - Implementar breadcrumb -- Ok
       - Implementar um método em JS para retornar formatado o campo data. -- Ok
-      - Implementar no filtro Duas datas sendo Data Inicial e Data Final.
+      - Implementando o Insert levando em consideração as correções para o campo data de nascimento
+        - Continuar para resolver o problema na classe ContatoParaContatoDto.toDtoObject e assim persistir o insert
+      
+        - Implementar no filtro Duas datas sendo Data Inicial e Data Final.
       - Implementar um método em JS para retornar formatado o campo telefone.
       - Implementar o Editar
       - Implementar o Inserir

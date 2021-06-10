@@ -18,11 +18,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContatoInput {
 
-    @ApiModelProperty(value = "CPF do Contato", required = true , example = "111.111.111-11")
-    private String cpf;
     @ApiModelProperty(value = "Nome do Contato", required = true, example = "Antonio Nunes")
     private String nome;
+
     @ApiModelProperty(value = "Telefone do Contato", required = true , example = "(99)9999-9999")
     private String telefone;
+
+    @ApiModelProperty(value = "Data de Nascimento", required = true , example = "2021-07-24T03:00:00.000Z - ISO8601")
+    private String dataNascimento;
+
+    @ApiModelProperty(value = "Código Operadora", required = true , example = "14")
+    private String operadora;
 
 }
