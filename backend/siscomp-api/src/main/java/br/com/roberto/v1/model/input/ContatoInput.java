@@ -1,5 +1,6 @@
 package br.com.roberto.v1.model.input;
 
+import br.com.roberto.entity.Operadora;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -28,6 +29,6 @@ public class ContatoInput {
     private String dataNascimento;
 
     @ApiModelProperty(value = "Código Operadora", required = true , example = "14")
-    private String operadora;
+    private Operadora operadora;
 
 }
