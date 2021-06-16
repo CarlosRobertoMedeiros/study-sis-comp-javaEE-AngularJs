@@ -12,6 +12,16 @@
         vm.icIncluir = true;
         vm.contato = undefined;
         
+        vm.init = function(){
+
+            vm.dados = [];
+            vm.mensagem = undefined;
+            vm.icIncluir = true;
+            vm.contato = undefined;
+
+            vm.listarTodos(); 
+        }
+        
         vm.listarTodos = function(){
 
             contatosService.listarTodos()
@@ -40,10 +50,20 @@
                 )
         };
 
-        //TODO: Implementar a Inclusão
-        vm.alterarContato = function(){
-            //Aqui carregar a Lista de Operadoras
-        
+        vm.incluirContato = function(){
+            
+            contatosService.incluirContato(vm.contato)
+                .then(function(response){
+                        vm.dados = [];
+                        vm.dados =  response.data;
+                        vm.listarTodos();
+                    },function(error){
+                        if (error.data){
+                            vm.mensagem = error;
+                            $('#modalContatoMensagem').modal('show');
+                        }
+                    }
+                )
         };
         
         
@@ -53,13 +73,23 @@
             $('#modalAlterarContato').modal('show');
         };
 
-        //TODO: Implementar a alteração
+        //TODO: verificar a alteração
         vm.alterarContato = function(){
+            
+            contatosService.alterarContato(vm.contato)
+                .then(function(response){
+                        vm.dados = [];
+                        vm.dados =  response.data;
+                        vm.listarTodos();
+                    },function(error){
+                        if (error.data){
+                            vm.mensagem = error;
+                            $('#modalContatoMensagem').modal('show');
+                        }
+                    }
+                )
+        };
 
-        }
-
-        
-        
         vm.prepararExclusaoContato = function(contato){
             vm.icIncluir = false;
             vm.contato = contato;
@@ -82,7 +112,7 @@
         };
         
         
-        vm.listarTodos(); 
+        vm.init();
        
     }
    

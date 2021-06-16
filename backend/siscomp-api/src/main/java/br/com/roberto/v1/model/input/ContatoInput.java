@@ -29,6 +29,6 @@ public class ContatoInput {
     private String dataNascimento;
 
     @ApiModelProperty(value = "Código Operadora", required = true , example = "14")
-    private Operadora operadora;
+    private OperadoraInput operadora;
 
 }

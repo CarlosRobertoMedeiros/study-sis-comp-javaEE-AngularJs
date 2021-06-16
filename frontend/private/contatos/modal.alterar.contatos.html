@@ -11,7 +11,9 @@
             </div>
             <div class="modal-body">
                 
+                <!--
                 {{vm.dados.operadoras |json}}
+                -->
                 {{vm.contato |json}}
 
                 <!-- Formulário -->
@@ -43,7 +45,7 @@
                             
                                 <select id="contato-operadoras" class="form-control"
                                         ng-model="vm.contato.operadora" 
-                                        ng-options="operadora.codigoOperadora as operadora.nomeOperadora for operadora in vm.dados.operadoras">
+                                        ng-options="operadora.nomeOperadora for operadora in vm.dados.operadoras">
                                         <option value="">Escolha uma operadora</option>
                                 </select>
 

@@ -22,6 +22,26 @@
             return operadorasService.listarTodas();
         }
 
+        vm.incluirContato = function(contato){
+            console.log(JSON.stringify(contato));
+            let url = baseUrl+baseVersao+"contatos";
+            return $http({
+                    url: url,
+                    method: "POST",
+                    data: contato
+                });
+        }
+
+        vm.alterarContato = function(contato){
+            console.log(JSON.stringify(contato));
+            let url = baseUrl+baseVersao+"contatos";
+            return $http({
+                    url: url,
+                    method: "PUT",
+                    data: contato
+                });
+        }
+
         vm.excluirContato = function(contato){
             console.log(JSON.stringify(contato));
             let url = baseUrl+baseVersao+"contatos"+"/"+contato.idContato;
