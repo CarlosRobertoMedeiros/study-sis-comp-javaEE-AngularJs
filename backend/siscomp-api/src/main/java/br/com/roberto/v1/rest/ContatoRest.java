@@ -76,16 +76,26 @@ public class ContatoRest implements ContatoRestOpenApi {
 
     /**
      * Atualiza os dados de um contato existente
-     * @param id
      * @param novoContato
      * @return
      */
     @PUT
-    @Path("/{id}")
-    public Response atualizaContato(@PathParam("id") Long id, ContatoInput novoContato){
+    public Response atualizaContato(ContatoInput novoContato){
         ContatoDto contatoDtoRequest = ContatoInputParaContatoDto.toDtoObject(novoContato);
-        ContatoDto contatoResponse = contatoService.atualizaContato(id, contatoDtoRequest);
+        ContatoDto contatoResponse = contatoService.atualizaContato(contatoDtoRequest);
         return Response.ok(contatoResponse).build();
+    }
+
+    /**
+     * Exclui um contato existente
+     * @param contatoInput
+     * @return
+     */
+    @DELETE
+    public Response excluiContato(ContatoInput contatoInput) {
+        ContatoDto contatoDtoRequest = ContatoInputParaContatoDto.toDtoObject(contatoInput);
+        contatoService.excluiContato(contatoDtoRequest);
+        return Response.ok().build();
     }
 
     /**
@@ -95,7 +105,7 @@ public class ContatoRest implements ContatoRestOpenApi {
      */
     @DELETE
     @Path("/{id}")
-    public Response excluiContato(@PathParam("id") Long id) {
+    public Response excluiContatoById(@PathParam("id") Long id) {
         contatoService.excluiContatoById(id);
         return Response.ok().build();
     }

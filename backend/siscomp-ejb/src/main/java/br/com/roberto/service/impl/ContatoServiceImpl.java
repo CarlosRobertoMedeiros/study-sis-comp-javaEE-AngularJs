@@ -7,7 +7,6 @@ import br.com.roberto.dto.ContatosDto;
 import br.com.roberto.dto.ContatosPaginadosDto;
 import br.com.roberto.entity.Contato;
 import br.com.roberto.exceptions.NegocioException;
-import br.com.roberto.helper.DataHelper;
 import br.com.roberto.repository.ContatoRepository;
 import br.com.roberto.repository.Paginacao;
 import br.com.roberto.service.ContatoService;
@@ -15,9 +14,9 @@ import br.com.roberto.service.ContatoService;
 import javax.ejb.*;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
 @Local
 @Stateless
@@ -113,17 +112,16 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     /**
      * Método do BeanEJB Responsável por atualizar os dados de um contato
-     * @param id
      * @param novoContatoDTO
      * @return ContatoDto
      */
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public ContatoDto atualizaContato(Long id,ContatoDto novoContatoDTO) {
+    public ContatoDto atualizaContato(ContatoDto novoContatoDTO) {
         Contato contato = null;
         Contato contatoAtualizado = null;
 
-        contato = contatoRepository.findById(id);
+        contato = contatoRepository.findById(novoContatoDTO.getIdContato());
         if (contato == null) {
             throw new NegocioException(rb.getString("CONTATO_INFORMADO_INEXISTENTE"));
         }
@@ -131,6 +129,8 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
         contato.setNome(contatoAtualizado.getNome());
         contato.setTelefone(contatoAtualizado.getTelefone());
+        contato.setOperadora(contatoAtualizado.getOperadora());
+        contato.setDataNascimento(contatoAtualizado.getDataNascimento());
 
         contatoRepository.merge(contato);
         return ContatoParaContatoDto.toDtoObject(contato);
@@ -138,17 +138,28 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
 
     /**
      * Método do BeanEJB Responsável por excluir um contato
-     * @param id
+     * @param contatoDto
      */
     @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
-    public void excluiContatoById(Long id) {
+    public void excluiContato(ContatoDto contatoDto) {
 
+        Contato contato = contatoRepository.findById(contatoDto.getIdContato());
+        if (contato==null){
+            throw new NegocioException(rb.getString("CONTATO_INFORMADO_INEXISTENTE"));
+        }
+        contatoRepository.remove(contato);
+    }
+
+    @Override
+    @TransactionAttribute(TransactionAttributeType.REQUIRED)
+    public void excluiContatoById(Long id) {
         Contato contato = contatoRepository.findById(id);
         if (contato==null){
             throw new NegocioException(rb.getString("CONTATO_INFORMADO_INEXISTENTE"));
         }
         contatoRepository.remove(contato);
+
     }
 }
 /*

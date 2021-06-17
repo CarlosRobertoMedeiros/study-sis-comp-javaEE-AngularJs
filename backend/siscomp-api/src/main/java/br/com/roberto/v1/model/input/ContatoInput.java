@@ -19,6 +19,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContatoInput {
 
+    @ApiModelProperty(value = "Id do Contato", required = false, example = "1 - * Usado apenas para alteração")
+    private Long idContato;
+
     @ApiModelProperty(value = "Nome do Contato", required = true, example = "Antonio Nunes")
     private String nome;
 

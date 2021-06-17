@@ -70,7 +70,19 @@
         vm.prepararAlteracaoContato = function(contato){
             vm.icIncluir = false;
             vm.contato = contato;
-            $('#modalAlterarContato').modal('show');
+            
+            contatosService.listarTodasOperadoras()
+                .then(function(response){
+                        vm.dados = [];
+                        vm.dados =  response.data;
+                        $('#modalAlterarContato').modal('show');
+                    },function(error){
+                        console.log('error '+error)
+                    }
+                )
+            
+            //Posicionar a lista no contato existente
+            
         };
 
         //TODO: verificar a alteração

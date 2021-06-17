@@ -12,6 +12,7 @@ public interface ContatoService {
     ContatosPaginadosDto getContatosPaginados(int totalRegistrosPorPagina, int paginaAtual);
     ContatoDto getContatosById(Long id);
     ContatoDto insereContato(ContatoDto contatoDto);
-    ContatoDto atualizaContato(Long id, ContatoDto converterContatoDto);
+    ContatoDto atualizaContato(ContatoDto contatoDto);
+    void excluiContato(ContatoDto contatoDto);
     void excluiContatoById(Long id);
 }
