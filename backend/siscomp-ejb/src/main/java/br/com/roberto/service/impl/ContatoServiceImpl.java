@@ -32,6 +32,7 @@ public class ContatoServiceImpl implements ContatoService, Serializable {
      * Método do BeanEJB Responsável por listar todos os contatos
      * Essa funcionalidade vai ser depreciada
      * @return ContatosDto
+     * Rever todos os DTOs
      */
     @Override
     @TransactionAttribute(TransactionAttributeType.SUPPORTS)
