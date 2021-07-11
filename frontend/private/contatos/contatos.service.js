@@ -18,9 +18,11 @@
             return $http.get(url);
         }
 
+        
         vm.listarTodasOperadoras = function(){
             return operadorasService.listarTodas();
         }
+        
 
         vm.incluirContato = function(contato){
             console.log(JSON.stringify(contato));

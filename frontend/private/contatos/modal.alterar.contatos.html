@@ -5,7 +5,7 @@
             <div class="modal-header" style="background-color:#6f42c1;">
                 <h5 ng-show="vm.icIncluir" class="modal-title" id="modalAlterarContatoTitle" style="color:#FFF;">Incluir Contato</h5>
                 <h5 ng-show="!vm.icIncluir" class="modal-title" id="modalAlterarContatoTitle" style="color:#FFF;">Alterar Contato</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                <button type="button" class="close" data-dismiss="modal" ng-click="vm.reset()" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -14,10 +14,15 @@
                 <!--
                 {{vm.dados.operadoras |json}}
                 -->
-                {{vm.contato |json}}
+                
+                {{ vm.contato.dataNascimento.substring(0,4) |json}} <!--ano-->
+                {{ vm.contato.dataNascimento.substring(6,8) |json}} <!--mes-->
+                {{ vm.contato.dataNascimento.substring(8,10) |json}} <!--dia-->
 
                 <!-- Formulário -->
-                    <form> 
+                    <form name="contatoForm"> 
+                        {{contatoForm.$invalid}}
+                        {{contatoForm.$valid}}
                         <div class="form-group col-md-4">
                             <!-- ID -->
                             <label for="contato-id" class="col-form-label">Id</label>
@@ -27,18 +32,21 @@
                         <div class="form-group row col-md-12">
                             <div class="form-group col-md-8">
                                 <label for="contato-nome" class="col-form-label">Nome</label>
-                                <input type="text" class="form-control" id="contato-nome" ng-model="vm.contato.nome">
+                                <input type="text" class="form-control" id="contato-nome" name="nome"
+                                        ng-model="vm.contato.nome" ng-required="true" ng-minlength="10">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="contato-data-nascimento" class="col-form-label">Data Nascimento</label>
-                                <input type="date"  date="dd-MM-yyyy" class="form-control" id="contato-data-nascimento" ng-model="vm.contato.dataNascimento">
+                                <input type="date"  date="dd-MM-yyyy" class="form-control" id="contato-data-nascimento" name="datanascimento" 
+                                        ng-model="vm.contato.dataNascimento"  ng-required="true" ng-minlength="10" ng-maxlength="10">
                             </div>
                         </div>
 
                         <div class="form-group row col-md-12">
                             <div class="form-group col-md-6">
                                 <label for="contato-telefone" class="col-form-label">Telefone</label>
-                                <input type="text" class="form-control" id="contato-telefone" ng-model="vm.contato.telefone">
+                                <input type="text" class="form-control" id="contato-telefone" name="telefone" 
+                                        ng-model="vm.contato.telefone" ng-required="true" ng-pattern="/(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})$/">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="contato-operadoras" class="col-form-label">Operadora</label>
@@ -51,15 +59,44 @@
 
                             </div>
                         </div>
+                        
+                        <div ng-show="contatoForm.nome.$error.required && contatoForm.nome.$dirty" class="alert alert-danger">
+                            Por favor, preencha o nome !
+                        </div>
 
+                        <div ng-show="contatoForm.nome.$error.minlength" class="alert alert-danger">
+                            O campo nome deve ter no mínimo 10 caracteres !
+                        </div>
+                        
+                        <div ng-show="contatoForm.datanascimento.$error.required && contatoForm.datanascimento.$dirty" class="alert alert-danger">
+                            Por favor, preencha a data de nascimento no formato DD/MM/AAAA !
+                        </div>
+
+                        <div ng-show="contatoForm.datanascimento.$error.minlength" class="alert alert-danger">
+                            O campo data de nascimento deve ter no mínimo 10 caracteres !
+                        </div>
+
+                        <div ng-show="contatoForm.datanascimento.$error.maxlength" class="alert alert-danger">
+                            O campo data de nascimento deve ter no máximo 10 caracteres !
+                        </div>
+
+
+                        <div ng-show="contatoForm.telefone.$error.required && contatoForm.telefone.$dirty" class="alert alert-danger">
+                            Por favor, preencha o telefone !
+                        </div>
+
+                        <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
+                            O campo telefone deve ter o formato (DD)DDDDD-DDDD ou (DD)DDDD-DDDD
+                        </div>
+                        
                         
                     </form>   
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button ng-show="vm.icIncluir" type="button" class="btn btn-primary" ng-click="vm.incluirContato()"><i class="fa fa-plus fa-xs"></i>Incluir</button>
-                <button ng-show="!vm.icIncluir" type="button" class="btn btn-primary" ng-click="vm.alterarContato()"><i class="fa fa-edit fa-xs"></i>Alterar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="vm.reset()">Cancelar</button>
+                <button ng-show="vm.icIncluir"  ng-disabled="contatoForm.$invalid" type="button" class="btn btn-primary" ng-click="vm.incluirContato()"><i class="fa fa-plus fa-xs"></i>Incluir</button>
+                <button ng-show="!vm.icIncluir" ng-disabled="contatoForm.$invalid" type="button" class="btn btn-primary" ng-click="vm.alterarContato()"><i class="fa fa-edit fa-xs"></i>Alterar</button>
             </div>
         </div>
     </div>

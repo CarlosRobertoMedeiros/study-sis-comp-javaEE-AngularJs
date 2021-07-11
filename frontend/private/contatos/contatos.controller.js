@@ -8,6 +8,7 @@
         const vm = this;
         
         vm.dados = [];
+        vm.dadosCopiados = [];
         vm.mensagem = undefined;
         vm.icIncluir = true;
         vm.contato = undefined;
@@ -15,6 +16,7 @@
         vm.init = function(){
 
             vm.dados = [];
+            vm.dadosCopiados = [];
             vm.mensagem = undefined;
             vm.icIncluir = true;
             vm.contato = undefined;
@@ -28,12 +30,20 @@
                 .then(function(response){
                             vm.dados = [];
                             vm.dados =  response.data;
+                            vm.dadosCopiados = angular.copy(vm.dados);
+
                         },function(error){
                             console.log('error '+error)
                         }
                         
                     )
         };
+
+        vm.reset = function(){
+            vm.dados = [];
+            //vm.contatoForm.setPristine();
+            vm.dados = vm.dadosCopiados;
+        }
 
         vm.prepararInclusaoContato = function(){
             vm.icIncluir = true;
@@ -57,6 +67,8 @@
                         vm.dados = [];
                         vm.dados =  response.data;
                         vm.listarTodos();
+                        vm.contatoForm.setPristine();
+                        $('#modalAlterarContato').modal('hide');
                     },function(error){
                         if (error.data){
                             vm.mensagem = error;
@@ -87,12 +99,14 @@
 
         //TODO: verificar a alteração
         vm.alterarContato = function(){
-            
+            console.log(vm.contato);
             contatosService.alterarContato(vm.contato)
                 .then(function(response){
                         vm.dados = [];
                         vm.dados =  response.data;
+                        vm.dados.dataNascimento = new Date(vm.dados.dataNascimento); // convert filed to date
                         vm.listarTodos();
+                        $('#modalAlterarContato').modal('hide');
                     },function(error){
                         if (error.data){
                             vm.mensagem = error;
