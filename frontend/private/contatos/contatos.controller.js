@@ -9,6 +9,7 @@
         
         vm.dados = [];
         vm.dadosCopiados = [];
+        vm.dadosOperadoras = [];
         vm.mensagem = undefined;
         vm.icIncluir = true;
         vm.contato = undefined;
@@ -51,13 +52,14 @@
             
             contatosService.listarTodasOperadoras()
                 .then(function(response){
-                        vm.dados = [];
-                        vm.dados =  response.data;
+                        vm.dadosOperadoras = [];
+                        vm.dadosOperadoras = response.data;
                         $('#modalAlterarContato').modal('show');
                     },function(error){
                         console.log('error '+error)
                     }
                 )
+            //vm.contatoForm.$setPristine();
         };
 
         vm.incluirContato = function(){
@@ -67,7 +69,6 @@
                         vm.dados = [];
                         vm.dados =  response.data;
                         vm.listarTodos();
-                        vm.contatoForm.setPristine();
                         $('#modalAlterarContato').modal('hide');
                     },function(error){
                         if (error.data){
@@ -85,15 +86,16 @@
             
             contatosService.listarTodasOperadoras()
                 .then(function(response){
-                        vm.dados = [];
-                        vm.dados =  response.data;
+                        vm.dadosOperadoras = [];
+                        vm.dadosOperadoras =  response.data;
                         $('#modalAlterarContato').modal('show');
                     },function(error){
                         console.log('error '+error)
                     }
                 )
-            
+            console.log(JSON.stringify(contato));
             //Posicionar a lista no contato existente
+            //Ajustar Aqui
             
         };
 
@@ -104,7 +106,8 @@
                 .then(function(response){
                         vm.dados = [];
                         vm.dados =  response.data;
-                        vm.dados.dataNascimento = new Date(vm.dados.dataNascimento); // convert filed to date
+                        vm.dados.dataNascimento = new Date(vm.dados.dataNascimento.getFullYear(),("0"+(vm.dados.dataNascimento.getMonth()+1).slice(-2)),vm.dados.dataNascimento.getDay()); // convert filed to date
+                        console.log("Aqui " + vm.dados.dataNascimento);
                         vm.listarTodos();
                         $('#modalAlterarContato').modal('hide');
                     },function(error){
