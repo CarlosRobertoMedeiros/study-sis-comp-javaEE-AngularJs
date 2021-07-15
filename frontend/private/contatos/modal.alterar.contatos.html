@@ -5,7 +5,7 @@
             <div class="modal-header" style="background-color:#6f42c1;">
                 <h5 ng-show="vm.icIncluir" class="modal-title" id="modalAlterarContatoTitle" style="color:#FFF;">Incluir Contato</h5>
                 <h5 ng-show="!vm.icIncluir" class="modal-title" id="modalAlterarContatoTitle" style="color:#FFF;">Alterar Contato</h5>
-                <button type="button" class="close" data-dismiss="modal" ng-click="vm.reset()" aria-label="Fechar">
+                <button type="button" class="close" data-dismiss="modal" ng-click="vm.reset(contatoForm)" aria-label="Fechar">
                 <span aria-hidden="true">&times;</span>
                 </button>
             </div>
@@ -18,11 +18,14 @@
                 {{ vm.contato.dataNascimento.substring(0,4) |json}} <!--ano-->
                 {{ vm.contato.dataNascimento.substring(6,8) |json}} <!--mes-->
                 {{ vm.contato.dataNascimento.substring(8,10) |json}} <!--dia-->
+                {{contatoForm.$invalid}}
+                {{contatoForm.$valid}}
+
+                
 
                 <!-- Formulário -->
-                    <form name="contatoForm"> 
-                        {{contatoForm.$invalid}}
-                        {{contatoForm.$valid}}
+                    <form name="contatoForm" id="contatoForm1" novalidate> 
+                        
                         <div class="form-group col-md-4">
                             <!-- ID -->
                             <label for="contato-id" class="col-form-label">Id</label>
@@ -51,10 +54,12 @@
                             <div class="form-group col-md-6">
                                 <label for="contato-operadoras" class="col-form-label">Operadora</label>
                             
-                                <select id="contato-operadoras" class="form-control"
+                                <select id="contato-operadoras" class="form-control" name="operadora"
                                         ng-model="vm.contato.operadora" 
+                                        ng-required="true"
                                         ng-options="operadora.nomeOperadora for operadora in vm.dadosOperadoras.operadoras">
-                                        <option value="">Escolha uma operadora</option>
+                                        <!-- <option value="">Escolha uma operadora</option> -->
+                                        <option ng-selected="{{operadora.nomeOperadora}}">{{vm.contato.operadora.nomeOperadora}}</option>
                                 </select>
 
                             </div>
@@ -88,15 +93,19 @@
                         <div ng-show="contatoForm.telefone.$error.pattern" class="alert alert-danger">
                             O campo telefone deve ter o formato (DD)DDDDD-DDDD ou (DD)DDDD-DDDD
                         </div>
+
+                        <div ng-show="contatoForm.operadora.$error.required && contatoForm.operadora.$dirty" class="alert alert-danger">
+                            Deve ser selecionado uma operadora para inclusão !
+                        </div>
                         
-                        
+
                     </form>   
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="vm.reset()">Cancelar</button>
-                <button ng-show="vm.icIncluir"  ng-disabled="contatoForm.$invalid" type="button" class="btn btn-primary" ng-click="vm.incluirContato()"><i class="fa fa-plus fa-xs"></i>Incluir</button>
-                <button ng-show="!vm.icIncluir" ng-disabled="contatoForm.$invalid" type="button" class="btn btn-primary" ng-click="vm.alterarContato()"><i class="fa fa-edit fa-xs"></i>Alterar</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" ng-click="vm.reset(contatoForm)">Cancelar</button>
+                <button ng-show="vm.icIncluir"  ng-disabled="contatoForm.$invalid" type="button" class="btn btn-primary" ng-click="vm.incluirContato(); vm.reset(contatoForm)"><i class="fa fa-plus fa-xs"></i>Incluir</button>
+                <button ng-show="!vm.icIncluir" ng-disabled="contatoForm.$invalid" type="button" class="btn btn-primary" ng-click="vm.alterarContato(); vm.reset(contatoForm)"><i class="fa fa-edit fa-xs"></i>Alterar</button>
             </div>
         </div>
     </div>

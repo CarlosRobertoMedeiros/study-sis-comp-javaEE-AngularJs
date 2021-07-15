@@ -40,9 +40,11 @@
                     )
         };
 
-        vm.reset = function(){
-            vm.dados = [];
-            //vm.contatoForm.setPristine();
+        vm.reset = function(contatoForm){
+            if (contatoForm!=undefined){
+                contatoForm.$setPristine(true);
+            }
+            vm.contato = undefined;
             vm.dados = vm.dadosCopiados;
         }
 
@@ -59,17 +61,19 @@
                         console.log('error '+error)
                     }
                 )
-            //vm.contatoForm.$setPristine();
+        
         };
 
         vm.incluirContato = function(){
+            
+            console.log('Incluir '+ vm.contato);
             
             contatosService.incluirContato(vm.contato)
                 .then(function(response){
                         vm.dados = [];
                         vm.dados =  response.data;
                         vm.listarTodos();
-                        $('#modalAlterarContato').modal('hide');
+                         $('#modalAlterarContato').modal('hide');
                     },function(error){
                         if (error.data){
                             vm.mensagem = error;
@@ -84,6 +88,9 @@
             vm.icIncluir = false;
             vm.contato = contato;
             
+            vm.contato.dataNascimento = new Date(vm.contato.dataNascimento.substr(0,4),vm.contato.dataNascimento.substr(5,2)-1, vm.contato.dataNascimento.substr(8,2));
+            
+            
             contatosService.listarTodasOperadoras()
                 .then(function(response){
                         vm.dadosOperadoras = [];
@@ -93,9 +100,11 @@
                         console.log('error '+error)
                     }
                 )
-            console.log(JSON.stringify(contato));
-            //Posicionar a lista no contato existente
-            //Ajustar Aqui
+
+            console.log('alterar' + JSON.stringify(contato));
+            
+            
+            
             
         };
 
