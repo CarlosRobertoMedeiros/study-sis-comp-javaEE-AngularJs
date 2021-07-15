@@ -19,7 +19,7 @@ public abstract class AbstractRepository<T, ID> {
     }
 
     public List<T> findAll() {
-        return em.createQuery("Select t from " + getClazz().getSimpleName() + " t").getResultList();
+        return em.createQuery("Select t from " + getClazz().getSimpleName() + " t order by 1").getResultList();
     }
 
     public <T> Paginacao findAllWithPagination(int totalRegistrosPorPagina, int paginaAtual) {
