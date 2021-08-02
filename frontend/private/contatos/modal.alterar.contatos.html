@@ -52,16 +52,13 @@
                                         ng-model="vm.contato.telefone" ng-required="true" ng-pattern="/(\(?\d{2}\)?\s)?(\d{4,5}\-\d{4})$/">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="contato-operadoras" class="col-form-label">Operadora</label>
-                            
-                                <select id="contato-operadoras" class="form-control" name="operadora"
-                                        ng-model="vm.contato.operadora" 
-                                        ng-required="true"
-                                        ng-options="operadora.nomeOperadora for operadora in vm.dadosOperadoras.operadoras">
-                                        <!-- <option value="">Escolha uma operadora</option> -->
-                                        <option ng-selected="{{operadora.nomeOperadora}}">{{vm.contato.operadora.nomeOperadora}}</option>
-                                </select>
 
+                                <label for="contato-operadoras" class="col-form-label">Operadora</label>
+                                <select id="contato-operadoras" class="form-control" name="operadora"
+                                    ng-model="vm.minhaOperadora"
+                                    ng-required="true" 
+                                    ng-options="operadora.nomeOperadora for operadora in vm.dadosOperadoras.operadoras">
+                                </select>
                             </div>
                         </div>
                         

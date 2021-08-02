@@ -49,6 +49,7 @@
         }
 
         vm.prepararInclusaoContato = function(){
+            vm.reset();
             vm.icIncluir = true;
             vm.contato = undefined;
             
@@ -85,27 +86,32 @@
         
         
         vm.prepararAlteracaoContato = function(contato){
+            vm.reset();
             vm.icIncluir = false;
             vm.contato = contato;
             
             vm.contato.dataNascimento = new Date(vm.contato.dataNascimento.substr(0,4),vm.contato.dataNascimento.substr(5,2)-1, vm.contato.dataNascimento.substr(8,2));
             
-            
             contatosService.listarTodasOperadoras()
-                .then(function(response){
-                        vm.dadosOperadoras = [];
-                        vm.dadosOperadoras =  response.data;
+                    .then(function(response){
+                    
+                        vm.dadosOperadoras.operadoras = [];
+                        vm.dadosOperadoras.operadoras = response.data.operadoras;
+
+                        //Pesquisar as Operadoras e Retornar Pelo Nome do contato selecionado
+                        //vm.minhaOperadora = vm.dadosOperadoras.operadoras[2];
+                        for (let i=0; i< vm.dadosOperadoras.operadoras.length; i++){
+                            if (vm.dadosOperadoras.operadoras[i].nomeOperadora === contato.operadora.nomeOperadora){
+                                vm.minhaOperadora = vm.dadosOperadoras.operadoras[i];       
+                                break;
+                            }
+                        }
                         $('#modalAlterarContato').modal('show');
                     },function(error){
                         console.log('error '+error)
-                    }
-                )
-
-            console.log('alterar' + JSON.stringify(contato));
-            
-            
-            
-            
+                    }   
+                );
+            console.log('alterar' + JSON.stringify(contato.operadora));
         };
 
         //TODO: verificar a alteração
