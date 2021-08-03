@@ -13,6 +13,7 @@
         vm.mensagem = undefined;
         vm.icIncluir = true;
         vm.contato = undefined;
+        vm.resetCount = 0;
         
         vm.init = function(){
 
@@ -40,23 +41,33 @@
                     )
         };
 
-        vm.reset = function(contatoForm){
-            if (contatoForm!=undefined){
-                contatoForm.$setPristine(true);
-            }
+        vm.reset = function() {
+            console.log("Contato a ser alterado: " + JSON.stringify(vm.contato));
+        };
+
+        /*
+        vm.reset = function(){
             vm.contato = undefined;
             vm.dados = vm.dadosCopiados;
+
+            if (vm.contatoForm!=undefined ){
+                if (vm.contatoForm.$pristine===false){
+                    vm.contatoForm.$setPristine(true);
+                }
+            }
+            //contatoForm=undefined;
         }
+        */
 
         vm.prepararInclusaoContato = function(){
-            vm.reset();
             vm.icIncluir = true;
             vm.contato = undefined;
             
             contatosService.listarTodasOperadoras()
                 .then(function(response){
-                        vm.dadosOperadoras = [];
+                    vm.dadosOperadoras = [];
                         vm.dadosOperadoras = response.data;
+                        console.log("Contato a ser alterado: " + JSON.stringify(vm.dadosOperadoras));
                         $('#modalAlterarContato').modal('show');
                     },function(error){
                         console.log('error '+error)
@@ -67,7 +78,7 @@
 
         vm.incluirContato = function(){
             
-            console.log('Incluir '+ vm.contato);
+            console.log('Incluir'+ vm.contato);
             
             contatosService.incluirContato(vm.contato)
                 .then(function(response){
@@ -116,7 +127,7 @@
 
         //TODO: verificar a alteração
         vm.alterarContato = function(){
-            console.log(vm.contato);
+            console.log('Alterar Contato'+ vm.contato);
             contatosService.alterarContato(vm.contato)
                 .then(function(response){
                         vm.dados = [];
@@ -141,6 +152,7 @@
         };
 
         vm.excluirContato = function(){
+            console.log('Excluir Contato'+ vm.contato);
             contatosService.excluirContato(vm.contato)
                 .then(function(response){
                         vm.mensagem = response.data;
